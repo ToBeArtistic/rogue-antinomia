@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://t6rnh2oggj5h"]
+
+[ext_resource type="Texture2D" uid="uid://csgysl4pmqxm4" path="res://sprites/PH_gun.png" id="1_bix3y"]
+[ext_resource type="Script" path="res://equipment.gd" id="1_ie1lw"]
+
+[node name="Equipment" type="Node3D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_ie1lw")
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.0232687, 0.0035952, -0.198609, 0.00274796, 0.199942, 0.00394129, 0.198623, -0.0031874, 0.0232126, 0.405036, -0.161361, -0.639899)
+texture = ExtResource("1_bix3y")
