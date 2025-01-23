@@ -1,6 +1,5 @@
 extends Node3D
 
-
 var bob : float = 0.0
 var bobEnabled : bool = false
 @export var bobbing_speed_y : float = 5.0
@@ -8,6 +7,8 @@ var bobEnabled : bool = false
 @export var bobbing_offset_y : float = 0.001
 @export var bobbing_offset_x : float = 0.0002
 @export var sprite : Sprite3D
+@export var projectile_emitter : ProjectileEmitter
+@export var raycast_aim : RayCast3D
 var sprite_start_x : float
 var sprite_start_y : float
 
@@ -15,6 +16,7 @@ var sprite_start_y : float
 func _ready():
 	PlayerGlobal.connect("PLAYER_MOVING", _on_player_move)
 	PlayerGlobal.connect("PLAYER_STOPPED", _on_player_stop)
+	PlayerGlobal.connect("EQUIPMENT_PRIMARY", _on_equipment_primary)
 	sprite_start_x = sprite.position.x
 	sprite_start_y = sprite.position.y
 
@@ -39,3 +41,7 @@ func _on_player_move():
 	
 func _on_player_stop():
 	bobEnabled = false
+	
+func _on_equipment_primary():
+	var targetPoint = raycast_aim.get_collision_point()
+	projectile_emitter.fire_at_target(targetPoint)

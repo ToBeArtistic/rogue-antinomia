@@ -6,6 +6,8 @@ extends CharacterBody3D
 
 @onready var nav_agent = $NavigationAgent3D
 
+@export var health : float = 10.0
+
 var targetPosition : Vector3
 
 func _ready():
@@ -23,3 +25,10 @@ func _process(delta):
 	look_at(targetPosition, Vector3.UP)
 	move_and_slide()
 
+func take_damage(amount:float):
+	health -= amount
+	if(health<=0):
+		die()
+
+func die():
+	queue_free()

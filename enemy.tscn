@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://clptc7f0jac38"]
+[gd_scene load_steps=6 format=3 uid="uid://clptc7f0jac38"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_lvgls"]
 [ext_resource type="Texture2D" uid="uid://dkjhxyuy3akcp" path="res://sprites/sticcboi.png" id="2_tooke"]
@@ -7,7 +7,10 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_awrnw"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("sprite")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_m87fo"]
+viewport_path = NodePath("SubViewport")
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("sprite") groups=["enemy"]]
 script = ExtResource("1_lvgls")
 sprite = NodePath("CollisionShape3D/Sprite3D")
 
@@ -27,3 +30,18 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("SphereMesh_awrnw")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 90.5
+offset_right = 549.5
+offset_bottom = 27.0
+grow_horizontal = 2
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+visible = false
+texture = SubResource("ViewportTexture_m87fo")

@@ -30,6 +30,8 @@ func _ready():
 func _input(event):
 	if event.is_action("exit_game"):
 		get_tree().quit()
+	if event.is_action_pressed("equipment_primary"):
+		PlayerGlobal.EQUIPMENT_PRIMARY.emit()
 
 #Mouse movement handled in this method so that UI inputs will be captured first
 func _unhandled_input(event):
