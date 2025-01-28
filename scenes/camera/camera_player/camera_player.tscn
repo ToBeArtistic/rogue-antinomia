@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcpoe44pybdqr"]
+
+[ext_resource type="Script" path="res://scenes/camera/camera_player/camera_player.gd" id="1_pex7r"]
+
+[node name="camera_player" type="Camera3D" node_paths=PackedStringArray("interact_raycast")]
+script = ExtResource("1_pex7r")
+interact_raycast = NodePath("interact_raycast")
+
+[node name="interact_raycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2

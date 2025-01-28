@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://f7uuvexdy2gc"]
+
+[ext_resource type="Script" path="res://rogue_antinomia.gd" id="1_to4l8"]
+[ext_resource type="PackedScene" uid="uid://6ybqg6o231vo" path="res://scenes/game/handlers/game_handler/game_handler.tscn" id="2_mgjq3"]
+[ext_resource type="PackedScene" uid="uid://celttwiftk4v5" path="res://scenes/game/handlers/environment_handler/environment_handler.tscn" id="3_dpuw0"]
+[ext_resource type="PackedScene" uid="uid://blottet3adujl" path="res://scenes/game/handlers/level_handler/level_handler.tscn" id="4_edglg"]
+[ext_resource type="PackedScene" uid="uid://dt2qngpbn0lbw" path="res://scenes/game/handlers/player_handler/player_handler.tscn" id="5_44qv6"]
+[ext_resource type="PackedScene" uid="uid://civ2l6jqavi2s" path="res://scenes/game/handlers/camera_handler/camera_handler.tscn" id="6_d0ue6"]
+[ext_resource type="PackedScene" uid="uid://dfg3lxwqjvkgq" path="res://scenes/game/handlers/ui_handler/ui_handler.tscn" id="7_8w7ni"]
+
+[node name="rogue_antinomia" type="Node3D" node_paths=PackedStringArray("game_handler", "level_handler", "player_handler", "environment_handler", "camera_handler", "ui_handler")]
+script = ExtResource("1_to4l8")
+game_handler = NodePath("game_handler")
+level_handler = NodePath("level_handler")
+player_handler = NodePath("player_handler")
+environment_handler = NodePath("environment_handler")
+camera_handler = NodePath("camera_handler")
+ui_handler = NodePath("ui_handler")
+
+[node name="game_handler" parent="." instance=ExtResource("2_mgjq3")]
+
+[node name="level_handler" parent="." instance=ExtResource("4_edglg")]
+
+[node name="player_handler" parent="." instance=ExtResource("5_44qv6")]
+
+[node name="environment_handler" parent="." instance=ExtResource("3_dpuw0")]
+
+[node name="camera_handler" parent="." instance=ExtResource("6_d0ue6")]
+
+[node name="ui_handler" parent="." instance=ExtResource("7_8w7ni")]

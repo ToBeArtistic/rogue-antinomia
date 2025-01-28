@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cloimi2y50yr8"]
+
+[ext_resource type="Script" path="res://scenes/level/hub_area/hub_area.gd" id="1_7nttj"]
+[ext_resource type="PackedScene" uid="uid://btp2dn8ciqlm7" path="res://scenes/game/game_elements/player_spawn/player_spawn.tscn" id="1_ummb0"]
+[ext_resource type="PackedScene" uid="uid://bb3jnlcxi5gpw" path="res://scenes/game/game_elements/start_portal/start_portal.tscn" id="2_v2jvt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5o1ol"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1nbor"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="hub_area" type="Node3D"]
+script = ExtResource("1_7nttj")
+
+[node name="spawn_points" type="Node3D" parent="."]
+
+[node name="player_spawn_1" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="player_spawn" parent="spawn_points/player_spawn_1" instance=ExtResource("1_ummb0")]
+
+[node name="geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="geometry"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_5o1ol")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="geometry/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/Floor/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_1nbor")
+
+[node name="start_portal_1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68191, -8.66798)
+
+[node name="start_portal" parent="start_portal_1" instance=ExtResource("2_v2jvt")]

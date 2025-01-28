@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://0koxni444x14"]
+
+[ext_resource type="PackedScene" uid="uid://btp2dn8ciqlm7" path="res://scenes/game/game_elements/player_spawn/player_spawn.tscn" id="1_dguos"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qo7hx"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k1nkb"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kbdiv"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i0mld"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="ph_level_1" type="Node3D"]
+
+[node name="geometry" type="Node3D" parent="."]
+
+[node name="floor" type="MeshInstance3D" parent="geometry"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("BoxMesh_qo7hx")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="geometry/floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/floor/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_k1nkb")
+
+[node name="box" type="MeshInstance3D" parent="geometry"]
+transform = Transform3D(12.2435, 0, 0, 0, 1.8758, 0, 0, 0, 1.8758, 5.84145, 1.4196, 11.9321)
+mesh = SubResource("BoxMesh_kbdiv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="geometry/box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/box/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_i0mld")
+
+[node name="box2" type="MeshInstance3D" parent="geometry"]
+transform = Transform3D(5.76572, 0, -1.65479, 0, 1.8758, 0, 10.801, 0, 0.883353, 8.29061, 1.4196, 6.14925)
+mesh = SubResource("BoxMesh_kbdiv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="geometry/box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/box2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_i0mld")
+
+[node name="spawn_points" type="Node3D" parent="."]
+
+[node name="player_spawn_1" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="player_spawn" parent="spawn_points/player_spawn_1" instance=ExtResource("1_dguos")]
