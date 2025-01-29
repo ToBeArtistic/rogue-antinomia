@@ -26,6 +26,10 @@ func select_hub_area():
 	
 
 func next_level():
+	if level_index+1 == levels.size():
+		select_hub_area()
+		return
+	
 	var level_scene = levels[level_index+1]
 	select_level(level_scene)
 	level_index += 1

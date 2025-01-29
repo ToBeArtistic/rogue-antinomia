@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://csjndma7u6quf"]
+
+[ext_resource type="PackedScene" uid="uid://btp2dn8ciqlm7" path="res://scenes/game/game_elements/player_spawn/player_spawn.tscn" id="1_hryfm"]
+[ext_resource type="PackedScene" uid="uid://bb3jnlcxi5gpw" path="res://scenes/game/game_elements/start_portal/start_portal.tscn" id="2_00e0i"]
+
+[node name="ph_tile_2" type="Node3D"]
+
+[node name="walls" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.91102, -41.271)
+size = Vector3(54.8185, 9.40127, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="walls"]
+transform = Transform3D(0.812521, 0, -0.582932, 0, 1, 0, 0.582932, 0, 0.812521, 33.3368, 4.91102, -31.9075)
+size = Vector3(43.9121, 9.40127, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-0.035388, 0, -0.999374, 0, 1, 0, 0.999374, 0, -0.035388, 48.8481, 4.91102, 0.0536013)
+size = Vector3(81.6092, 9.40127, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209951, 4.91102, 37.2225)
+size = Vector3(128.1, 9.40127, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-0.0118156, 0, 0.99993, 0, 1, 0, -0.99993, 0, -0.0118156, -24.9589, 4.91102, -33.3689)
+size = Vector3(30.5363, 9.40127, 1)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-0.382506, 0, -0.923953, 0, 1, 0, 0.923953, 0, -0.382506, -35.2287, 4.91102, 7.01556)
+size = Vector3(54.8185, 9.40127, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="walls"]
+transform = Transform3D(0.575191, 0, -0.818019, 0, 1, 0, 0.818019, 0, 0.575191, -43.2214, 4.91102, 31.3358)
+size = Vector3(29.4002, 9.40127, 1)
+
+[node name="floor" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="floor"]
+size = Vector3(101.841, 1, 84.9971)
+
+[node name="middle" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="middle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.04148, 2.58485, -2.20961)
+size = Vector3(13.8004, 4.33709, 10.5244)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="middle"]
+transform = Transform3D(0.797321, 0, 0.603556, 0, 1, 0, -0.603556, 0, 0.797321, 25.6745, 2.58485, -12.1238)
+size = Vector3(13.8004, 4.33709, 26.4036)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="middle"]
+transform = Transform3D(0.964783, 0, 0.263048, 0, 1, 0, -0.263048, 0, 0.964783, 5.52029, 2.58485, 19.0047)
+size = Vector3(5.04068, 4.33709, 5.20322)
+
+[node name="spawn_points" type="Node3D" parent="."]
+
+[node name="player_spawn_1" type="Node3D" parent="spawn_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.149, 0.999998, 27.529)
+
+[node name="player_spawn" parent="spawn_points/player_spawn_1" instance=ExtResource("1_hryfm")]
+
+[node name="start_portal_1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68191, -36.668)
+
+[node name="start_portal" parent="start_portal_1" instance=ExtResource("2_00e0i")]
