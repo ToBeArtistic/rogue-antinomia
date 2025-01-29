@@ -16,6 +16,7 @@ func _ready():
 	LevelService.level_handler = level_handler
 	PlayerService.player_handler = player_handler
 	UIService.ui_handler = ui_handler
+	CameraService.camera_handler = camera_handler
 	#Start game
 	GameService.game_start(GameStartCommand.new())
 	pass

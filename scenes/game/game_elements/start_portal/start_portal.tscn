@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bb3jnlcxi5gpw"]
+[gd_scene load_steps=6 format=3 uid="uid://bb3jnlcxi5gpw"]
 
 [ext_resource type="Texture2D" uid="uid://duq7rrxj3saf5" path="res://scenes/game/game_elements/start_portal/PH_portal.png" id="1_noqy0"]
 [ext_resource type="Script" path="res://scenes/game/game_elements/start_portal/start_portal.gd" id="1_pbmy6"]
 [ext_resource type="Script" path="res://scenes/common/interact/interact.gd" id="2_wakk4"]
+[ext_resource type="PackedScene" uid="uid://dahxdcckikwky" path="res://scenes/ui/hud/waypoints/waypoint.tscn" id="4_ahnwx"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fwold"]
 radius = 1.0
@@ -21,3 +22,5 @@ shape = SubResource("SphereShape3D_fwold")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 texture = ExtResource("1_noqy0")
+
+[node name="waypoint" parent="." instance=ExtResource("4_ahnwx")]

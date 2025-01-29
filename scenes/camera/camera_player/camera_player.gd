@@ -12,13 +12,14 @@ func _ready():
 	current = true
 	print_debug("player camera is current camera")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	CameraService.set_player_camera(self)
 	pass # Replace with function body.
 
-func _process(delta):
-	interact()
+func _process(_delta):
+	fire_interact_cast()
 		
 
-func interact():
+func fire_interact_cast():
 	interact_object = interact_raycast.get_collider()
 	if interact_object != null:
 		var can_interact_command = CanInteractCommand.new()
