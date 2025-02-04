@@ -21,6 +21,7 @@ LevelService="*res://global/services/level_service/level_service.gd"
 PlayerService="*res://global/services/player_service/player_service.gd"
 UIService="*res://global/services/ui_service/ui_service.gd"
 CameraService="*res://global/services/camera_service/camera_service.gd"
+EnemyService="*res://global/services/enemy_service/enemy_service.gd"
 
 [dotnet]
 

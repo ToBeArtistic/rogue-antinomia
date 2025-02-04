@@ -17,7 +17,7 @@ func get_clamped_vector2(coordinates:Vector2) -> Vector2:
 	var clamped : Vector2 = Vector2(x,y)
 	return clamped
 
-func get_edge_vector2(coordinates:Vector2) -> Vector2:
+func get_edge_vector2(coordinates:Vector2, only_sides:bool) -> Vector2:
 	var clamped = get_clamped_vector2(coordinates)
 	var closest_to_top = clamped.y > (bottom.position.y / 2.0)
 	var closest_to_left = left.position.x + clamped.x > (right.position.x / 2.0)
@@ -28,6 +28,9 @@ func get_edge_vector2(coordinates:Vector2) -> Vector2:
 		y = top.position.y + margin
 	else:
 		y = bottom.position.y - margin
+	if only_sides:
+		y = clamped.y
+	
 	if closest_to_left:
 		x = left.position.x + margin
 	else:

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://corkpcan38id6"]
+
+[ext_resource type="Script" path="res://scenes/game/handlers/enemy_handler/enemy_handler.gd" id="1_05fuk"]
+[ext_resource type="PackedScene" uid="uid://c1vv3tylnim2e" path="res://scenes/enemy/PH_stickman/PH_stickman.tscn" id="2_3hy6p"]
+
+[node name="enemy_handler" type="Node3D"]
+script = ExtResource("1_05fuk")
+enemies = Array[PackedScene]([ExtResource("2_3hy6p")])

@@ -20,5 +20,5 @@ func _draw():
 		if !is_behind:
 			draw_circle(hud.get_clamped_vector2(screenspace_vector), waypoint_size, waypoint_color)
 		else:
-			draw_circle(hud.get_edge_vector2(screenspace_vector), waypoint_size, waypoint_color)
+			draw_circle(hud.get_edge_vector2(screenspace_vector, true), waypoint_size, waypoint_color)
 		

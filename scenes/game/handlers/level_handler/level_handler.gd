@@ -8,6 +8,16 @@ class_name LevelHandler
 var current_level
 var level_index = -1
 
+@export var spawn_rate : float = 5.0
+@export var spawn_timer : float = 0.0
+
+func _process(delta):
+	if spawn_timer > spawn_rate:
+		spawn_enemy()
+	else:
+		spawn_timer += delta
+		print_debug(spawn_timer)
+
 func get_player_spawn() -> Node3D:
 	for child in current_level.find_children("player_spawn*"):
 		if child is Node3D and child.is_in_group("player_spawn"):
@@ -15,6 +25,19 @@ func get_player_spawn() -> Node3D:
 	print_debug(current_level)		
 	push_error("No player spawn found in current level")
 	return null
+
+func get_enemy_spawns() -> Array[Node3D]:
+	var spawn_points : Array[Node3D] = []
+	for child in current_level.find_children("enemy_spawn*"):
+		if child is Node3D and child.is_in_group("enemy_spawn"):
+			spawn_points.append(child)
+	return spawn_points
+
+func spawn_enemy():
+	spawn_timer = 0.0
+	var spawn_point = get_enemy_spawns().pick_random()
+	if spawn_point != null:
+		spawn_point.add_child(EnemyService.get_random_enemy_instance())
 
 func clear_level():
 	if current_level != null:
@@ -43,6 +66,7 @@ func select_level(level_scene : PackedScene):
 	current_level = level_scene.instantiate()
 	add_child(current_level)
 	spawn_player()
+	spawn_timer = 0.0
 
 func spawn_player():
 	var spawn_point = get_player_spawn()
@@ -52,3 +76,4 @@ func spawn_player():
 
 func clear_player():
 	PlayerService.clear_player()
+

@@ -7,6 +7,7 @@ class_name RogueAntinomia
 @export var player_handler : PlayerHandler
 @export var environment_handler : EnvironmentHandler
 @export var camera_handler : CameraHandler
+@export var enemy_handler : EnemyHandler
 @export var ui_handler : UIHandler
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +18,7 @@ func _ready():
 	PlayerService.player_handler = player_handler
 	UIService.ui_handler = ui_handler
 	CameraService.camera_handler = camera_handler
+	EnemyService.enemy_handler = enemy_handler
 	#Start game
 	GameService.game_start(GameStartCommand.new())
 	pass

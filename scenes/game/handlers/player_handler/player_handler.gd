@@ -7,6 +7,9 @@ class_name PlayerHandler
 var player : Player
 var interact_object
 
+func get_player_position() -> Vector3:
+	return player.global_position
+	
 func spawn_player(command:SpawnPlayerCommand):
 	command.run(self)
 
