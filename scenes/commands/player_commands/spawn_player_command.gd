@@ -1,5 +1,3 @@
-extends Node
-
 class_name SpawnPlayerCommand
 
 var spawn_point : Node3D

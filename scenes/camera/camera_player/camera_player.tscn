@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scenes/camera/camera_player/camera_player.gd" id="1_pex7r"]
 
 [node name="camera_player" type="Camera3D" node_paths=PackedStringArray("interact_raycast")]
+fov = 85.0
 script = ExtResource("1_pex7r")
 interact_raycast = NodePath("interact_raycast")
 

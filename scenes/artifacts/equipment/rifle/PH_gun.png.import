@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csgysl4pmqxm4"
-path.s3tc="res://.godot/imported/PH_gun.png-42c7210b5a00d51883c43959471a1f52.s3tc.ctex"
+path.s3tc="res://.godot/imported/PH_gun.png-9b55df7db3571a7f5b9dd298f2e5ba17.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://v0.0.1/sprites/PH_gun.png"
-dest_files=["res://.godot/imported/PH_gun.png-42c7210b5a00d51883c43959471a1f52.s3tc.ctex"]
+source_file="res://scenes/artifacts/equipment/rifle/PH_gun.png"
+dest_files=["res://.godot/imported/PH_gun.png-9b55df7db3571a7f5b9dd298f2e5ba17.s3tc.ctex"]
 
 [params]
 

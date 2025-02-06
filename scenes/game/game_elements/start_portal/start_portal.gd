@@ -4,4 +4,4 @@ class_name StartPortal
 
 
 func interact(params:InteractionParams):
-	LevelService.next_level()
+	Signals.player_interact_with.emit(params.player, self)

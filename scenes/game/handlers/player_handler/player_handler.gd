@@ -7,6 +7,9 @@ class_name PlayerHandler
 var player : Player
 var interact_object
 
+func _ready():
+	PlayerService.player_handler = self
+
 func get_player_position() -> Vector3:
 	return player.global_position
 	

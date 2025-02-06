@@ -25,9 +25,11 @@ var _camera_rotation : Vector3
 @export var MOUSE_SENS_Y := 0.5
 @export var MOUSE_SENS_X := 0.5
 
+@onready var camera : Camera3D = $camera_player
+
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Signals.player_select_equipment.emit(self, Enum.EQUIPMENT.PH_RIFLE)
 
 func _input(event):
 	if event.is_action("exit_game"):
@@ -77,10 +79,13 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		Signals.on_player_move.emit(self)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		Signals.on_player_stop.emit(self)
 
 	move_and_slide()
+	Signals.player_position_updated.emit(self,global_position)
 	
 

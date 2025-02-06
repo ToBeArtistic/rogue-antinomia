@@ -13,3 +13,6 @@ func remove_waypoint(waypoint:Waypoint):
 
 func get_waypoints() -> Array[Waypoint]:
 	return ui_handler.get_waypoints()
+
+func get_hud() -> Hud:
+	return ui_handler.get_hud()

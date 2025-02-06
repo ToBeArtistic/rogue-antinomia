@@ -8,12 +8,7 @@ class_name CameraPlayer
 var interact_object
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print_debug("player camera instantiated")
-	current = true
-	print_debug("player camera is current camera")
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	CameraService.set_player_camera(self)
-	pass # Replace with function body.
+	Signals.activate_player_camera.emit(self)
 
 func _process(_delta):
 	fire_interact_cast()

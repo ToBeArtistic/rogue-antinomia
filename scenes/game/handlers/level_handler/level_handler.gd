@@ -1,6 +1,6 @@
 extends Node3D
-
 class_name LevelHandler
+#Responsible for handling the instancing of levels and keeping track of spawn locations
 
 @export var hub_area : PackedScene
 @export var levels : Array[PackedScene]
@@ -11,18 +11,24 @@ var level_index = -1
 @export var spawn_rate : float = 5.0
 @export var spawn_timer : float = 0.0
 
+var objective_complete : bool = true
+
+func _ready():
+	LevelService.level_handler = self
+	Signals.start_game.connect(select_hub_area)
+	Signals.player_interact_with.connect(_handle_player_interaction)
+	Signals.objective_completed.connect(_complete_objective)
+
 func _process(delta):
 	if spawn_timer > spawn_rate:
 		spawn_enemy()
 	else:
 		spawn_timer += delta
-		print_debug(spawn_timer)
 
 func get_player_spawn() -> Node3D:
 	for child in current_level.find_children("player_spawn*"):
 		if child is Node3D and child.is_in_group("player_spawn"):
 			return child
-	print_debug(current_level)		
 	push_error("No player spawn found in current level")
 	return null
 
@@ -46,6 +52,7 @@ func clear_level():
 func select_hub_area():
 	select_level(hub_area)
 	level_index = -1
+	Signals.hub_area_selected.emit()
 	
 
 func next_level():
@@ -56,6 +63,8 @@ func next_level():
 	var level_scene = levels[level_index+1]
 	select_level(level_scene)
 	level_index += 1
+	objective_complete = false
+	Signals.next_level_selected.emit()
 
 func select_level(level_scene : PackedScene):
 	if level_scene == null:
@@ -77,3 +86,9 @@ func spawn_player():
 func clear_player():
 	PlayerService.clear_player()
 
+func _handle_player_interaction(player:Player, object:Object):
+	if object is StartPortal && objective_complete:
+		next_level()
+
+func _complete_objective():
+	objective_complete = true
