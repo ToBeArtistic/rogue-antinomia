@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://rjjts17k4x0j"]
-
-[ext_resource type="Script" path="res://v0.0.1/scripts/ProjectileEmitter.gd" id="1_6lkbh"]
-
-[node name="ProjectileEmitter" type="Node3D"]
-transform = Transform3D(1, -1.11759e-08, 4.47035e-08, 0, 1, -1.10595e-08, 8.19564e-08, -3.49246e-10, 1, -2, 0.3, 0)
-script = ExtResource("1_6lkbh")

@@ -8,7 +8,7 @@ class_name LevelHandler
 var current_level
 var level_index = -1
 
-@export var spawn_rate : float = 5.0
+@export var spawn_rate : float = 2.0
 @export var spawn_timer : float = 0.0
 
 var objective_complete : bool = true
@@ -41,6 +41,8 @@ func get_enemy_spawns() -> Array[Node3D]:
 
 func spawn_enemy():
 	spawn_timer = 0.0
+	if objective_complete:
+		return
 	var spawn_point = get_enemy_spawns().pick_random()
 	if spawn_point != null:
 		spawn_point.add_child(EnemyService.get_random_enemy_instance())

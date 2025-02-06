@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1vv3tylnim2e"]
 
 [ext_resource type="Script" path="res://scenes/enemy/PH_stickman/PH_stickman.gd" id="1_ix88n"]
-[ext_resource type="Texture2D" uid="uid://dkjhxyuy3akcp" path="res://v0.0.1/sprites/sticcboi.png" id="2_p84od"]
+[ext_resource type="Texture2D" uid="uid://dj07xox4s86ro" path="res://scenes/enemy/PH_stickman/sticcboi.png" id="2_1sw7n"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay7er"]
 
@@ -16,7 +16,7 @@ shape = SubResource("CapsuleShape3D_ay7er")
 
 [node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-texture = ExtResource("2_p84od")
+texture = ExtResource("2_1sw7n")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.517507, -0.570668)

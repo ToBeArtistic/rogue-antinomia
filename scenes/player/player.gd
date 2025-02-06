@@ -3,7 +3,10 @@ extends CharacterBody3D
 class_name Player
 
 var direction = Vector3()
+var speed : float = SPEED
 const SPEED = 5.0
+const MAX_SPEED = 20.0
+const ACCELERATION = 6.0
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -77,12 +80,14 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		speed = clampf(speed + ACCELERATION * delta, SPEED, MAX_SPEED)
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 		Signals.on_player_move.emit(self)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		speed = clampf(speed - ACCELERATION * delta, SPEED, MAX_SPEED)
+		velocity.x = move_toward(velocity.x, 0, ACCELERATION)
+		velocity.z = move_toward(velocity.z, 0, ACCELERATION)
 		Signals.on_player_stop.emit(self)
 
 	move_and_slide()
