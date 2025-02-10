@@ -8,18 +8,18 @@
 script = ExtResource("1_cg1kr")
 sprite = NodePath("sprite_point/Sprite3D")
 raycast_aim = NodePath("RayCast3D")
-projectile_creation_point = NodePath("sprite_point/emit_point")
+projectile_creation_point = NodePath("sprite_point/Sprite3D/emit_point")
 projectile_scene = ExtResource("2_slqr7")
 
 [node name="sprite_point" type="Node3D" parent="."]
 transform = Transform3D(0.246623, 0.0506244, -0.967788, -0.201078, 0.979575, 1.84121e-09, 0.948022, 0.194601, 0.251765, 0.418846, -0.21911, -0.556452)
 
-[node name="emit_point" type="Marker3D" parent="sprite_point"]
-transform = Transform3D(1, -1.49012e-08, 0, 0, 1, 0, 0, 1.49012e-08, 1, -0.835222, -0.0173471, -0.0211225)
-
 [node name="Sprite3D" type="Sprite3D" parent="sprite_point"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 texture = ExtResource("2_covxg")
+
+[node name="emit_point" type="Marker3D" parent="sprite_point/Sprite3D"]
+transform = Transform3D(5, -1.07288e-06, 0, 2.38419e-07, 5, 1.3411e-07, -1.19209e-07, -2.98023e-08, 5, -2.70122, 0.216014, 0.157274)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -20)

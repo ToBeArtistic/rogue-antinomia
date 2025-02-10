@@ -28,8 +28,7 @@ func _apply_equipment_scene_to_player(player : Player, scene : PackedScene):
 
 func create_projectile(data : ProjectileData):
 	var instance = data.scene.instantiate() as Projectile
-	instance.projectile_data = data
-	print_debug(instance)
+	instance.apply_data(data)
 	add_child(instance)
 	
 func _reset_objective():

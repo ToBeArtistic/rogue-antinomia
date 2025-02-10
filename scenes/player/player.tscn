@@ -13,3 +13,4 @@ CAMERA_CONTROLLER = NodePath("camera_player")
 shape = SubResource("CapsuleShape3D_245is")
 
 [node name="camera_player" parent="." instance=ExtResource("2_oyiqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

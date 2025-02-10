@@ -59,7 +59,7 @@ func _on_equipment_primary(delta):
 	_fire_rate += fire_rate
 	var data = ProjectileData.create(
 		global_position, 
-		global_position, 
+		projectile_creation_point.global_position, 
 		global_transform.basis, 
 		projectile_scene
 	)
