@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 class_name Player
 
+var data : PlayerData = PlayerData.new()
+
 var direction = Vector3()
 var speed : float = SPEED
 const SPEED = 5.0
@@ -33,6 +35,7 @@ var _camera_rotation : Vector3
 
 func _ready():
 	Signals.player_select_equipment.emit(self, Enum.EQUIPMENT.PH_RIFLE)
+	Signals.player_data_updated.emit(self)
 
 func _input(event):
 	if event.is_action("exit_game"):
@@ -93,4 +96,6 @@ func _physics_process(delta):
 	move_and_slide()
 	Signals.player_position_updated.emit(self,global_position)
 	
-
+func handle_damage(damage : DamageData):
+	damage.damage_player(self)
+	

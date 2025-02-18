@@ -7,13 +7,17 @@ extends Enemy
 
 @export var health : float = 500.0
 
+var target_player : Player
 var targetPosition : Vector3
+var can_attack : bool = true
+var attack_interval : float = 2
 
 func _ready():
 	Signals.player_position_updated.connect(_update_lookat)
 
 func _update_lookat(player, target):
 	targetPosition = target
+	target_player = player
 
 func _process(delta):
 	velocity = Vector3.ZERO
@@ -35,3 +39,10 @@ func die():
 
 func hit(data:ProjectileData):
 	take_damage(data.damage)
+
+func attack_player(player : Player):
+	var damage = DamageData.new()
+	damage.damage = 20
+	player.handle_damage(damage)
+	
+	
