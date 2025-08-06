@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6ybqg6o231vo"]
 
-[ext_resource type="Script" path="res://scenes/game/handlers/game_handler/game_handler.gd" id="1_5drim"]
+[ext_resource type="Script" uid="uid://go7a57ycbana" path="res://scenes/game/handlers/game_handler/game_handler.gd" id="1_5drim"]
 
 [node name="game_handler" type="Node3D"]
 script = ExtResource("1_5drim")

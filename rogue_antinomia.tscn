@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://f7uuvexdy2gc"]
 
-[ext_resource type="Script" path="res://rogue_antinomia.gd" id="1_to4l8"]
+[ext_resource type="Script" uid="uid://xpb3tur4sas2" path="res://rogue_antinomia.gd" id="1_to4l8"]
 [ext_resource type="PackedScene" uid="uid://6ybqg6o231vo" path="res://scenes/game/handlers/game_handler/game_handler.tscn" id="2_mgjq3"]
 [ext_resource type="PackedScene" uid="uid://celttwiftk4v5" path="res://scenes/game/handlers/environment_handler/environment_handler.tscn" id="3_dpuw0"]
 [ext_resource type="PackedScene" uid="uid://dr2vktk6qdn0j" path="res://scenes/artifacts/equipment/rifle/PH_rifle.tscn" id="3_q4enw"]

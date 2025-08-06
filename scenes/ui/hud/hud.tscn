@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgxlg1n68jwwm"]
+[gd_scene load_steps=17 format=3 uid="uid://dgxlg1n68jwwm"]
 
-[ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_r3di6"]
-[ext_resource type="Script" path="res://scenes/ui/hud/reticle.gd" id="1_w5mcl"]
-[ext_resource type="Script" path="res://scenes/ui/hud/score.gd" id="2_83gx8"]
-[ext_resource type="Script" path="res://scenes/ui/hud/waypoints.gd" id="2_edler"]
+[ext_resource type="Script" uid="uid://bkdrh8sytq402" path="res://scenes/ui/hud/hud.gd" id="1_r3di6"]
+[ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle.gd" id="1_w5mcl"]
+[ext_resource type="Script" uid="uid://djvlb2s18r8sb" path="res://scenes/ui/hud/score.gd" id="2_83gx8"]
+[ext_resource type="Script" uid="uid://bqxs6w710ya53" path="res://scenes/ui/hud/waypoints.gd" id="2_edler"]
 [ext_resource type="Theme" uid="uid://bxux0af3l708a" path="res://resources/themes/empty.tres" id="5_0vv74"]
 [ext_resource type="Theme" uid="uid://dlumjrfko5do4" path="res://resources/themes/card_panels.tres" id="5_8fi8x"]
 [ext_resource type="Texture2D" uid="uid://csgysl4pmqxm4" path="res://scenes/artifacts/equipment/rifle/PH_gun.png" id="7_5wg5a"]
 [ext_resource type="Texture2D" uid="uid://cdrst033g36qn" path="res://resources/icons/equipment.png" id="7_61eau"]
-[ext_resource type="Script" path="res://scenes/ui/hud/hp_bar.gd" id="7_wjseg"]
+[ext_resource type="Script" uid="uid://bhb5v6ye6yncj" path="res://scenes/ui/hud/hp_bar.gd" id="7_wjseg"]
+[ext_resource type="PackedScene" uid="uid://calgxcjq5nrxv" path="res://scenes/ui/cards/card.tscn" id="10_wbdw2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5lvde"]
 line_spacing = 30.0
@@ -151,6 +152,7 @@ offset_bottom = 40.0
 script = ExtResource("2_edler")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="controls"]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -278,3 +280,93 @@ size_flags_horizontal = 3
 [node name="Equipment" type="PanelContainer" parent="controls/HBoxContainer/Core/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="BottomGrid" type="GridContainer" parent="controls"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 3
+
+[node name="Artifacts" type="GridContainer" parent="controls/BottomGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="card" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card2" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card3" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card4" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="Stats" type="GridContainer" parent="controls/BottomGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="controls/BottomGrid/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("5_0vv74")
+
+[node name="PanelContainer" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer4" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="hp_bar" type="TextureProgressBar" parent="controls/BottomGrid/Stats/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+value = 90.0
+fill_mode = 6
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_rdwft")
+script = ExtResource("7_wjseg")
+
+[node name="hp_text" type="Label" parent="controls/BottomGrid/Stats/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+text = "HP"
+label_settings = SubResource("LabelSettings_q3iae")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Core" type="GridContainer" parent="controls/BottomGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="card5" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card6" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card7" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
+layout_mode = 2
+
+[node name="card8" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
+layout_mode = 2

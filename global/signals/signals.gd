@@ -2,6 +2,9 @@ extends Node
 
 #game
 signal start_game
+signal pause_game
+signal unpause_game
+signal toggle_mouse_visibility
 signal objective_completed
 
 #levels

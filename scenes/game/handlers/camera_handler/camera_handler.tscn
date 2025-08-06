@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://civ2l6jqavi2s"]
 
-[ext_resource type="Script" path="res://scenes/game/handlers/camera_handler/camera_handler.gd" id="1_fttvm"]
+[ext_resource type="Script" uid="uid://c7gta2ejpmh2w" path="res://scenes/game/handlers/camera_handler/camera_handler.gd" id="1_fttvm"]
 
 [node name="camera_handler" type="Node3D"]
 script = ExtResource("1_fttvm")

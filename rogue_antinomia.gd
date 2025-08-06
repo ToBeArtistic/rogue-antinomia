@@ -8,7 +8,16 @@ func _ready():
 	GameService.game_start(GameStartCommand.new())
 	pass
 
+var paused : bool = false
 
 func _input(event):
-	if event.is_action("exit_game"):
+	if event.is_action_pressed("exit_game"):
 		get_tree().quit()
+	if event.is_action_pressed("pause"):
+		paused = !paused
+		if paused:
+			Signals.pause_game.emit()
+		else:
+			Signals.unpause_game.emit()
+	if event.is_action("show_mouse"):
+		Signals.toggle_mouse_visibility.emit()

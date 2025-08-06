@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfg3lxwqjvkgq"]
 
-[ext_resource type="Script" path="res://scenes/game/handlers/ui_handler/ui_handler.gd" id="1_60vcp"]
+[ext_resource type="Script" uid="uid://cuslqa24yl81c" path="res://scenes/game/handlers/ui_handler/ui_handler.gd" id="1_60vcp"]
 [ext_resource type="PackedScene" uid="uid://dgxlg1n68jwwm" path="res://scenes/ui/hud/hud.tscn" id="2_is17j"]
 
 [node name="ui_handler" type="Control"]
@@ -16,3 +16,12 @@ mouse_filter = 1
 script = ExtResource("1_60vcp")
 
 [node name="hud" parent="." instance=ExtResource("2_is17j")]
+
+[node name="menus" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="menus"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 661.0
+grow_vertical = 2

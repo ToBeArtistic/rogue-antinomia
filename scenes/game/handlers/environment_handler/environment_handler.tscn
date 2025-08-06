@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://celttwiftk4v5"]
 
 [ext_resource type="PackedScene" uid="uid://uh66t5dyp2yk" path="res://scenes/environment/world_environments/world_environment.tscn" id="1_q4smf"]
-[ext_resource type="Script" path="res://scenes/game/handlers/environment_handler/environment_handler.gd" id="1_yniop"]
+[ext_resource type="Script" uid="uid://clr3v7n8b7ngb" path="res://scenes/game/handlers/environment_handler/environment_handler.gd" id="1_yniop"]
 
 [node name="environment_handler" type="Node3D"]
 script = ExtResource("1_yniop")

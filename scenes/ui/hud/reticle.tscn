@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://csxrqwlu0qixt"]
 
-[ext_resource type="Script" path="res://scenes/ui/hud/reticle.gd" id="1_1xa8a"]
+[ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle.gd" id="1_1xa8a"]
 
 [node name="reticle" type="CenterContainer"]
 anchors_preset = 8

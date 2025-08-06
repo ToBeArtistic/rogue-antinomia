@@ -15,7 +15,7 @@ func _ready():
 
 func apply_data(data:ProjectileData):
 	projectile_data = data
-	global_position = projectile_data.origin
+	transform.origin = projectile_data.origin
 	basis = projectile_data.basis
 
 func _process(delta):

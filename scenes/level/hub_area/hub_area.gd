@@ -5,5 +5,3 @@ extends Node3D
 func _ready():
 	print_debug("hub_area selected")
 	pass # Replace with function body.
-
-

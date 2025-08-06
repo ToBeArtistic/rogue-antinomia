@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://70yogy4rn1l2"]
 
-[ext_resource type="Script" path="res://scenes/game/game_elements/projectile/projectile.gd" id="1_ji2mc"]
+[ext_resource type="Script" uid="uid://cjkn6kune3dju" path="res://scenes/game/game_elements/projectile/projectile.gd" id="1_ji2mc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hvv71"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcpoe44pybdqr"]
 
-[ext_resource type="Script" path="res://scenes/camera/camera_player/camera_player.gd" id="1_pex7r"]
+[ext_resource type="Script" uid="uid://ppkat51ha003" path="res://scenes/camera/camera_player/camera_player.gd" id="1_pex7r"]
 
 [node name="camera_player" type="Camera3D" node_paths=PackedStringArray("interact_raycast")]
 fov = 85.0
