@@ -23,6 +23,8 @@ var _mouse_rotation : Vector3
 var _player_rotation : Vector3
 var _camera_rotation : Vector3
 
+@export var debug_mode : bool
+
 @export var TILT_LOWER_LIMIT := deg_to_rad(-89)
 @export var TILT_UPPER_LIMIT := deg_to_rad(89)
 @export var CAMERA_CONTROLLER : Camera3D
@@ -44,6 +46,8 @@ func _input(event):
 		pass
 	if event.is_action_pressed("interact"):
 		PlayerService.interact()
+	if debug_mode:
+		debug(event)
 
 #Mouse movement handled in this method so that UI inputs will be captured first
 func _unhandled_input(event):
@@ -99,3 +103,7 @@ func _physics_process(delta):
 func handle_damage(damage : DamageData):
 	damage.damage_player(self)
 	
+func debug(event):
+	if event.is_action_pressed("debug_take_damage"):
+			data.health = data.health - 10
+			Signals.player_data_updated.emit(data)

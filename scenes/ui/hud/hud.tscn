@@ -1,40 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgxlg1n68jwwm"]
+[gd_scene load_steps=8 format=3 uid="uid://dgxlg1n68jwwm"]
 
 [ext_resource type="Script" uid="uid://bkdrh8sytq402" path="res://scenes/ui/hud/hud.gd" id="1_r3di6"]
 [ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle.gd" id="1_w5mcl"]
+[ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_2wu1p"]
 [ext_resource type="Script" uid="uid://djvlb2s18r8sb" path="res://scenes/ui/hud/score.gd" id="2_83gx8"]
 [ext_resource type="Script" uid="uid://bqxs6w710ya53" path="res://scenes/ui/hud/waypoints.gd" id="2_edler"]
-[ext_resource type="Theme" uid="uid://bxux0af3l708a" path="res://resources/themes/empty.tres" id="5_0vv74"]
-[ext_resource type="Theme" uid="uid://dlumjrfko5do4" path="res://resources/themes/card_panels.tres" id="5_8fi8x"]
-[ext_resource type="Texture2D" uid="uid://csgysl4pmqxm4" path="res://scenes/artifacts/equipment/rifle/PH_gun.png" id="7_5wg5a"]
-[ext_resource type="Texture2D" uid="uid://cdrst033g36qn" path="res://resources/icons/equipment.png" id="7_61eau"]
-[ext_resource type="Script" uid="uid://bhb5v6ye6yncj" path="res://scenes/ui/hud/hp_bar.gd" id="7_wjseg"]
-[ext_resource type="PackedScene" uid="uid://calgxcjq5nrxv" path="res://scenes/ui/cards/card.tscn" id="10_wbdw2"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_5lvde"]
-line_spacing = 30.0
-font_size = 27
-shadow_size = 6
-shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Gradient" id="Gradient_1cinx"]
-colors = PackedColorArray(0.878431, 0.384314, 0.34902, 0.294118, 1, 0.47451, 0.258824, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bv8k0"]
-gradient = SubResource("Gradient_1cinx")
-fill_from = Vector2(1, 1)
-
-[sub_resource type="Gradient" id="Gradient_2uqc6"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.513726)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_rdwft"]
-gradient = SubResource("Gradient_2uqc6")
-fill_from = Vector2(1, 0.990291)
-
-[sub_resource type="LabelSettings" id="LabelSettings_q3iae"]
-font_size = 26
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 0.819608)
+[ext_resource type="Script" uid="uid://djsv6vqmgftq7" path="res://scenes/ui/hud/health_amount_text.gd" id="3_4m4yb"]
+[ext_resource type="Script" uid="uid://cchty2ljuo4o2" path="res://scenes/ui/hud/hp_progress_bar.gd" id="3_todbw"]
 
 [node name="hud" type="CanvasLayer" node_paths=PackedStringArray("top", "bottom", "left", "right", "center")]
 script = ExtResource("1_r3di6")
@@ -43,6 +15,94 @@ bottom = NodePath("controls/bottom")
 left = NodePath("controls/left")
 right = NodePath("controls/right")
 center = NodePath("controls/center")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -70.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -6.5
+offset_bottom = 6.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_2wu1p")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+script = ExtResource("3_todbw")
+
+[node name="ColorRect" type="ColorRect" parent="Control/ProgressBar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -7.5
+offset_right = 1.0
+offset_bottom = 7.5
+grow_vertical = 2
+
+[node name="ProgressBar2" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -6.5
+offset_right = 254.0
+offset_bottom = 6.5
+grow_vertical = 2
+theme = ExtResource("2_2wu1p")
+value = 100.0
+show_percentage = false
+script = ExtResource("3_todbw")
+
+[node name="ColorRect2" type="ColorRect" parent="Control/ProgressBar2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -7.5
+offset_bottom = 7.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -20.0
+offset_right = 128.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2wu1p")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("3_4m4yb")
 
 [node name="controls" type="Control" parent="."]
 layout_mode = 3
@@ -150,223 +210,3 @@ layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_edler")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="controls"]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -200.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Artifacts" type="PanelContainer" parent="controls/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_0vv74")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="controls/HBoxContainer/Artifacts"]
-layout_mode = 2
-theme = ExtResource("5_8fi8x")
-
-[node name="Artifact1" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PanelContainer2" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer/Artifact1"]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("5_0vv74")
-
-[node name="TextureRect" type="TextureRect" parent="controls/HBoxContainer/Artifacts/HBoxContainer/Artifact1/PanelContainer2"]
-layout_mode = 2
-texture = ExtResource("7_5wg5a")
-expand_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer/Artifact1"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme = ExtResource("5_0vv74")
-
-[node name="TextureRect" type="TextureRect" parent="controls/HBoxContainer/Artifacts/HBoxContainer/Artifact1/PanelContainer"]
-layout_mode = 2
-texture = ExtResource("7_61eau")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="controls/HBoxContainer/Artifacts/HBoxContainer/Artifact1"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "10"
-label_settings = SubResource("LabelSettings_5lvde")
-horizontal_alignment = 1
-
-[node name="Artifact2" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Artifact3" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Artifact4" type="PanelContainer" parent="controls/HBoxContainer/Artifacts/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Stats" type="PanelContainer" parent="controls/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_8fi8x")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="controls/HBoxContainer/Stats"]
-layout_mode = 2
-theme = ExtResource("5_0vv74")
-
-[node name="PanelContainer" type="PanelContainer" parent="controls/HBoxContainer/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PanelContainer2" type="PanelContainer" parent="controls/HBoxContainer/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="hp_bar" type="TextureProgressBar" parent="controls/HBoxContainer/Stats/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-value = 90.0
-fill_mode = 6
-nine_patch_stretch = true
-texture_under = SubResource("GradientTexture2D_bv8k0")
-texture_progress = SubResource("GradientTexture2D_rdwft")
-script = ExtResource("7_wjseg")
-
-[node name="hp_text" type="Label" parent="controls/HBoxContainer/Stats/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-text = "HP"
-label_settings = SubResource("LabelSettings_q3iae")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="PanelContainer3" type="PanelContainer" parent="controls/HBoxContainer/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Core" type="PanelContainer" parent="controls/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_0vv74")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="controls/HBoxContainer/Core"]
-layout_mode = 2
-theme = ExtResource("5_8fi8x")
-
-[node name="Dash" type="PanelContainer" parent="controls/HBoxContainer/Core/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Burst" type="PanelContainer" parent="controls/HBoxContainer/Core/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Salve" type="PanelContainer" parent="controls/HBoxContainer/Core/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Equipment" type="PanelContainer" parent="controls/HBoxContainer/Core/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="BottomGrid" type="GridContainer" parent="controls"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -200.0
-grow_horizontal = 2
-grow_vertical = 0
-columns = 3
-
-[node name="Artifacts" type="GridContainer" parent="controls/BottomGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 4
-
-[node name="card" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card2" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card3" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card4" parent="controls/BottomGrid/Artifacts" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="Stats" type="GridContainer" parent="controls/BottomGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="controls/BottomGrid/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("5_0vv74")
-
-[node name="PanelContainer" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PanelContainer4" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PanelContainer2" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="hp_bar" type="TextureProgressBar" parent="controls/BottomGrid/Stats/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-value = 90.0
-fill_mode = 6
-nine_patch_stretch = true
-texture_progress = SubResource("GradientTexture2D_rdwft")
-script = ExtResource("7_wjseg")
-
-[node name="hp_text" type="Label" parent="controls/BottomGrid/Stats/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-text = "HP"
-label_settings = SubResource("LabelSettings_q3iae")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="PanelContainer3" type="PanelContainer" parent="controls/BottomGrid/Stats/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Core" type="GridContainer" parent="controls/BottomGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 4
-
-[node name="card5" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card6" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card7" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
-layout_mode = 2
-
-[node name="card8" parent="controls/BottomGrid/Core" instance=ExtResource("10_wbdw2")]
-layout_mode = 2

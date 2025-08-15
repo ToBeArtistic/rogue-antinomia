@@ -1,0 +1,72 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cca2sjieq4dht"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lc1xd"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lc1xd"]
+color = Color(0.952508, 0.971516, 0.99679, 1)
+grow_begin = 0.0
+thickness = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3y35t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kwag3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4lbkv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jw3x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpsa5"]
+
+[resource]
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_lc1xd")
+ProgressBar/styles/fill = SubResource("StyleBoxLine_lc1xd")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
+RichTextLabel/colors/font_shadow_color = Color(0.00392157, 0.00392157, 0.0196078, 0.741176)
+RichTextLabel/colors/selection_color = Color(0.1, 0.1, 1, 0.8)
+RichTextLabel/colors/table_border = Color(0, 0, 0, 0)
+RichTextLabel/colors/table_even_row_bg = Color(0, 0, 0, 0)
+RichTextLabel/colors/table_odd_row_bg = Color(0, 0, 0, 0)
+RichTextLabel/constants/line_separation = 0
+RichTextLabel/constants/outline_size = 5
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/shadow_outline_size = 5
+RichTextLabel/constants/table_h_separation = 3
+RichTextLabel/constants/table_v_separation = 3
+RichTextLabel/constants/text_highlight_h_padding = 3
+RichTextLabel/constants/text_highlight_v_padding = 3
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/bold_italics_font_size = 16
+RichTextLabel/font_sizes/italics_font_size = 16
+RichTextLabel/font_sizes/mono_font_size = 16
+RichTextLabel/font_sizes/normal_font_size = 20
+RichTextLabel/styles/focus = SubResource("StyleBoxFlat_3y35t")
+RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_kwag3")
+TextEdit/styles/focus = SubResource("StyleBoxEmpty_4lbkv")
+TextEdit/styles/normal = SubResource("StyleBoxEmpty_8jw3x")
+TextEdit/styles/read_only = SubResource("StyleBoxEmpty_hpsa5")

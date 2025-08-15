@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://f7uuvexdy2gc"]
+[gd_scene load_steps=11 format=3 uid="uid://f7uuvexdy2gc"]
 
 [ext_resource type="Script" uid="uid://xpb3tur4sas2" path="res://rogue_antinomia.gd" id="1_to4l8"]
 [ext_resource type="PackedScene" uid="uid://6ybqg6o231vo" path="res://scenes/game/handlers/game_handler/game_handler.tscn" id="2_mgjq3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://civ2l6jqavi2s" path="res://scenes/game/handlers/camera_handler/camera_handler.tscn" id="6_d0ue6"]
 [ext_resource type="PackedScene" uid="uid://dfg3lxwqjvkgq" path="res://scenes/game/handlers/ui_handler/ui_handler.tscn" id="7_8w7ni"]
 [ext_resource type="PackedScene" uid="uid://corkpcan38id6" path="res://scenes/game/handlers/enemy_handler/enemy_handler.tscn" id="7_e1dw4"]
+[ext_resource type="AudioStream" uid="uid://b47r42jlvjvnp" path="res://resources/music/Echoes_of_the_Abyss_Second.mp3" id="10_v0xo4"]
 
 [node name="rogue_antinomia" type="Node3D"]
 script = ExtResource("1_to4l8")
@@ -27,3 +28,7 @@ ph_rifle = ExtResource("3_q4enw")
 [node name="enemy_handler" parent="." instance=ExtResource("7_e1dw4")]
 
 [node name="ui_handler" parent="." instance=ExtResource("7_8w7ni")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_v0xo4")
+autoplay = true
