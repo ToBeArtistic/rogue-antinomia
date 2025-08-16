@@ -43,6 +43,9 @@ func spawn_enemy():
 	spawn_timer = 0.0
 	if objective_complete:
 		return
+	var enemy_spawn_points = get_enemy_spawns()
+	if !enemy_spawn_points.size() > 0:
+		return
 	var spawn_point = get_enemy_spawns().pick_random()
 	if spawn_point != null:
 		spawn_point.add_child(EnemyService.get_random_enemy_instance())

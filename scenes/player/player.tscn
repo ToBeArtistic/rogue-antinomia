@@ -8,7 +8,11 @@
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
 script = ExtResource("1_spe01")
 debug_mode = true
+TILT_LOWER_LIMIT = null
+TILT_UPPER_LIMIT = null
 CAMERA_CONTROLLER = NodePath("camera_player")
+MOUSE_SENS_Y = null
+MOUSE_SENS_X = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_245is")

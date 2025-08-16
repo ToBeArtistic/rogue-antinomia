@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cn658hhhsfqkr"]
+
+[ext_resource type="Shader" uid="uid://b1xwf4d88ghwv" path="res://resources/shaders/fractal_noise_shader.gdshader" id="1_fryjn"]
+
+[sub_resource type="Gradient" id="Gradient_kcpvc"]
+colors = PackedColorArray(0, 0, 0, 1, 0.777092, 0.702372, 0.513647, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_phk38"]
+gradient = SubResource("Gradient_kcpvc")
+fill_from = Vector2(0.360215, 0.629032)
+
+[sub_resource type="Gradient" id="Gradient_fryjn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kcpvc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fryjn"]
+seamless = true
+color_ramp = SubResource("Gradient_fryjn")
+noise = SubResource("FastNoiseLite_kcpvc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcpvc"]
+shader = ExtResource("1_fryjn")
+shader_parameter/noise = SubResource("NoiseTexture2D_fryjn")
+shader_parameter/color = Color(0.71333, 0.40885, 0.853066, 1)
+shader_parameter/gradient = SubResource("GradientTexture2D_phk38")
+
+[node name="CanvasLayer" type="CanvasLayer"]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_kcpvc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

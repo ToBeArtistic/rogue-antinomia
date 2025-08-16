@@ -16,6 +16,7 @@ transform = Transform3D(0.246623, 0.0506244, -0.967788, -0.201078, 0.979575, 1.8
 
 [node name="Sprite3D" type="Sprite3D" parent="sprite_point"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
 texture = ExtResource("2_covxg")
 
 [node name="emit_point" type="Marker3D" parent="sprite_point/Sprite3D"]

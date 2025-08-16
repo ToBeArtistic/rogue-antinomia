@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgxlg1n68jwwm"]
+[gd_scene load_steps=13 format=3 uid="uid://dgxlg1n68jwwm"]
 
 [ext_resource type="Script" uid="uid://bkdrh8sytq402" path="res://scenes/ui/hud/hud.gd" id="1_r3di6"]
 [ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle.gd" id="1_w5mcl"]
@@ -7,6 +7,27 @@
 [ext_resource type="Script" uid="uid://bqxs6w710ya53" path="res://scenes/ui/hud/waypoints.gd" id="2_edler"]
 [ext_resource type="Script" uid="uid://djsv6vqmgftq7" path="res://scenes/ui/hud/health_amount_text.gd" id="3_4m4yb"]
 [ext_resource type="Script" uid="uid://cchty2ljuo4o2" path="res://scenes/ui/hud/hp_progress_bar.gd" id="3_todbw"]
+[ext_resource type="Shader" uid="uid://cvj8cfoandqy8" path="res://resources/shaders/speed_line_shader.gdshader" id="8_e7gie"]
+[ext_resource type="Script" uid="uid://drfuu41xi4ns0" path="res://scenes/ui/hud/speedlines.gd" id="9_swth0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e7gie"]
+noise_type = 5
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e7gie"]
+seamless_blend_skirt = 0.14
+noise = SubResource("FastNoiseLite_e7gie")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swth0"]
+shader = ExtResource("8_e7gie")
+shader_parameter/noise = SubResource("NoiseTexture2D_e7gie")
+shader_parameter/line_color = Color(0.707967, 0.707967, 0.707966, 0.388235)
+shader_parameter/line_count = 1.5
+shader_parameter/line_density = 0.275
+shader_parameter/line_faloff = 0.385
+shader_parameter/mask_size = 0.21
+shader_parameter/mask_edge = 0.938
+shader_parameter/animation_speed = 20.0
 
 [node name="hud" type="CanvasLayer" node_paths=PackedStringArray("top", "bottom", "left", "right", "center")]
 script = ExtResource("1_r3di6")
@@ -210,3 +231,13 @@ layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_edler")
+
+[node name="speedlines" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_swth0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_swth0")

@@ -31,4 +31,5 @@ ph_rifle = ExtResource("3_q4enw")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_v0xo4")
+volume_db = -22.0
 autoplay = true

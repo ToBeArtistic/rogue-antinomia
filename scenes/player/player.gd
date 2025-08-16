@@ -5,14 +5,32 @@ class_name Player
 var data : PlayerData = PlayerData.new()
 
 var direction = Vector3()
-var speed : float = SPEED
-const SPEED = 5.0
-const MAX_SPEED = 20.0
-const ACCELERATION = 6.0
-const JUMP_VELOCITY = 4.5
+var speed : float = STARTING_SPEED
+var acceleration : float = ACCELERATION
+var slowdown_acceleration : float = SLOWDOWN_ACCELERATION
+var max_speed : float = MAX_SPEED
+var dash_timer : float = 0.0
+var dash_cooldown : float = 0.0
+var dash_active : bool = false
+var double_jump : bool = true
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var coyote_timer = 0.0
+
+const STARTING_SPEED = 8.0
+const MAX_SPEED = 30.0
+const MAX_OVERSPEED = 80.0
+const ACCELERATION = 10.0
+const SLOWDOWN_ACCELERATION = 5.0
+const AIR_ACCELERATION = 0.7
+const SLOWDOWN_AIR_ACCELERATION = 0.5
+const JUMP_VELOCITY = 30.0
+const DOUBLE_JUMP_FACTOR = 1.3
+const DASH_VELOCITY = 1000.0
+const DASH_ACTIVATION_TIME = 0.2
+const DASH_COOLDOWN = 0.3
+const COYOTE_TIME = 0.3
+
+var gravity = 60.0
 
 #Camera variables
 var _mouse_input : bool = false
@@ -37,7 +55,7 @@ var _camera_rotation : Vector3
 
 func _ready():
 	Signals.player_select_equipment.emit(self, Enum.EQUIPMENT.PH_RIFLE)
-	Signals.player_data_updated.emit(self)
+	Signals.player_data_updated.emit(self.data)
 
 func _input(event):
 	if event.is_action("exit_game"):
@@ -71,34 +89,67 @@ func _update_camera(delta):
 	_tilt_input = 0.0
 
 func _physics_process(delta):
-	# Add the gravity.
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	
+	acceleration = ACCELERATION
+	slowdown_acceleration = SLOWDOWN_ACCELERATION
+	max_speed = MAX_SPEED
+	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		coyote_timer -= delta
+		acceleration = AIR_ACCELERATION
+		slowdown_acceleration = SLOWDOWN_AIR_ACCELERATION
+	else:
+		coyote_timer = COYOTE_TIME
+		double_jump = true
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_pressed("dash") and dash_cooldown < 0.01:
+		dash_active = true
+		dash_timer = DASH_ACTIVATION_TIME
+		dash_cooldown = DASH_COOLDOWN
+	
+	if dash_cooldown > 0.01:
+		dash_cooldown -= delta
+	
+	if dash_timer < 0.01:
+		dash_active = false
+	
+	if dash_active:
+		acceleration = DASH_VELOCITY
+		max_speed = MAX_OVERSPEED
+		dash_timer -= delta
+		
+	if input_dir.length() < 0.01 and dash_active:
+		input_dir.y -= 1.0
+		
+	if input_dir.length() < 0.01:
+		acceleration = SLOWDOWN_ACCELERATION	
+	
+	handle_jump()
 
 	# Handle camera rotation
 	_update_camera(delta)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	#var velocity_direction = Vector3(velocity.x, 0.0, velocity.z).normalized()
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		speed = clampf(speed + ACCELERATION * delta, SPEED, MAX_SPEED)
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		speed = clampf(speed + acceleration * delta, STARTING_SPEED, max_speed)
+		velocity.x = (direction.x * speed + 7 * velocity.x) / 8
+		velocity.z = (direction.z * speed + 7 * velocity.z) / 8
 		Signals.on_player_move.emit(self)
 	else:
-		speed = clampf(speed - ACCELERATION * delta, SPEED, MAX_SPEED)
-		velocity.x = move_toward(velocity.x, 0, ACCELERATION)
-		velocity.z = move_toward(velocity.z, 0, ACCELERATION)
+		speed = clampf(speed - slowdown_acceleration * 10 * delta, STARTING_SPEED, max_speed)
 		Signals.on_player_stop.emit(self)
+		velocity.x = move_toward(velocity.x, 0, slowdown_acceleration)
+		velocity.z = move_toward(velocity.z, 0, slowdown_acceleration)
 
 	move_and_slide()
 	Signals.player_position_updated.emit(self,global_position)
+	data.velocity = velocity.length()
+	Signals.player_data_updated.emit(self.data)
 	
 func handle_damage(damage : DamageData):
 	damage.damage_player(self)
@@ -107,3 +158,14 @@ func debug(event):
 	if event.is_action_pressed("debug_take_damage"):
 			data.health = data.health - 10
 			Signals.player_data_updated.emit(data)
+
+func handle_jump():
+	if not Input.is_action_just_pressed("jump"): 
+		return
+	var jump_velocity = JUMP_VELOCITY
+	if not (coyote_timer >= 0.0 or double_jump):
+		return
+	if not coyote_timer >= 0.0 and double_jump:
+		double_jump = false
+		jump_velocity = JUMP_VELOCITY / DOUBLE_JUMP_FACTOR
+	velocity.y = jump_velocity

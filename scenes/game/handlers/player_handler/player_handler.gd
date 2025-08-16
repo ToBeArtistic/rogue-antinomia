@@ -27,3 +27,10 @@ func interact():
 	var params = InteractionParams.new()
 	params.player = player
 	interact_object.interact(params)
+
+func _process(delta: float) -> void:
+	if player.global_position.y < -200.0:
+		clear_player()
+		var spawn_cmd = SpawnPlayerCommand.new()
+		spawn_cmd.spawn_point = LevelService.get_player_spawn()
+		spawn_player(spawn_cmd)
