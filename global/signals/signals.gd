@@ -30,3 +30,7 @@ signal enemy_died(enemy : Enemy)
 
 #projectiles
 signal create_projectile(data : ProjectileData)
+
+
+#hud
+signal create_damage_number(number:float)

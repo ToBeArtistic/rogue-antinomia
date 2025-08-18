@@ -9,7 +9,7 @@ func update_velocity(data : PlayerData) -> void:
 	if data:
 		velocity = clampf(data.velocity, 0.0, 50.0)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_speed_lines()
 
 func update_speed_lines() -> void:

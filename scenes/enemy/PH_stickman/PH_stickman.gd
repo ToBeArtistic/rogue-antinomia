@@ -19,7 +19,7 @@ func _update_lookat(player, target):
 	targetPosition = target
 	target_player = player
 
-func _process(delta):
+func _process(_delta):
 	velocity = Vector3.ZERO
 	nav_agent.set_target_position(targetPosition)
 	var next_nav_point = nav_agent.get_next_path_position()
@@ -33,11 +33,8 @@ func take_damage(amount:float):
 	if(health<=0):
 		die()
 
-func die():
-	Signals.enemy_died.emit(self)
-	queue_free()
-
 func hit(data:ProjectileData):
+	super(data)
 	take_damage(data.damage)
 
 func attack_player(player : Player):

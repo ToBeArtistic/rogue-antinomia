@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1vv3tylnim2e"]
+[gd_scene load_steps=6 format=3 uid="uid://c1vv3tylnim2e"]
 
 [ext_resource type="Script" uid="uid://d17cc16yv6ext" path="res://scenes/enemy/PH_stickman/PH_stickman.gd" id="1_ix88n"]
 [ext_resource type="Texture2D" uid="uid://dj07xox4s86ro" path="res://scenes/enemy/PH_stickman/sticcboi.png" id="2_1sw7n"]
+[ext_resource type="Script" uid="uid://bonsbj73g3r2m" path="res://scenes/ui/hud/waypoints/waypoint.gd" id="3_0fgut"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay7er"]
 
@@ -27,3 +28,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("SphereMesh_4voe0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("3_0fgut")
+color = Color(1, 0.00784314, 0, 1)

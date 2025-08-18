@@ -5,4 +5,9 @@ class_name Enemy
 signal died()
 
 func hit(data : ProjectileData):
-	print_debug(data.damage)
+	Signals.create_damage_number.emit(data.damage)
+
+func die():
+	Signals.enemy_died.emit(self)
+	died.emit()
+	queue_free()

@@ -41,10 +41,10 @@ func _handle_bobbing(delta):
 		sprite.position.x += (sprite_start_x - sprite.position.x) * delta * bobbing_speed_y
 	
 
-func _on_player_move(player : Player):
+func _on_player_move(_player : Player):
 	bobEnabled = true
 	
-func _on_player_stop(player : Player):
+func _on_player_stop(_player : Player):
 	bobEnabled = false
 	
 

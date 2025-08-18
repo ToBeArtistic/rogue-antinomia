@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cjkn6kune3dju" path="res://scenes/game/game_elements/projectile/projectile.gd" id="1_ji2mc"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gowgq"]
+size = Vector3(0.165, 10.9983, 0.12)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hvv71"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sccfm"]
@@ -10,22 +13,29 @@ emission_enabled = true
 emission = Color(0.929412, 0.815686, 0.733333, 1)
 emission_energy_multiplier = 4.24
 
-[sub_resource type="SphereMesh" id="SphereMesh_tylia"]
-
-[node name="projectile" type="Node3D"]
+[node name="projectile" type="Node3D" node_paths=PackedStringArray("projectile_visual", "hitbox", "hitbox_collision_object")]
 script = ExtResource("1_ji2mc")
-
-[node name="projectile_visual" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, -6.55671e-09, 0.05, 0, -0.15, -2.18557e-09, 0, 0, -0.3)
-mesh = SubResource("CapsuleMesh_hvv71")
-surface_material_override/0 = SubResource("StandardMaterial3D_sccfm")
+projectile_visual = NodePath("projectile_body/projectile_visual")
+hitbox = NodePath("projectile_body")
+hitbox_collision_object = NodePath("projectile_body/hitbox")
 
 [node name="hit_raycast" type="RayCast3D" parent="."]
+visible = false
 target_position = Vector3(0, 0, -10)
 debug_shape_custom_color = Color(0.180392, 0.92549, 0.792157, 1)
 debug_shape_thickness = 4
 
-[node name="hit_thing" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-visible = false
-mesh = SubResource("SphereMesh_tylia")
+[node name="projectile_body" type="RigidBody3D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="hitbox" type="CollisionShape3D" parent="projectile_body"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.87886e-08, 3.58928)
+shape = SubResource("BoxShape3D_gowgq")
+debug_color = Color(0.164706, 0.603922, 0.639216, 0.843137)
+
+[node name="projectile_visual" type="MeshInstance3D" parent="projectile_body"]
+transform = Transform3D(0.00253711, 0, 0, 0, -4.60344e-08, 0.014707, 0, -1.05314, -6.42864e-10, 0, 0, 5.94854e-05)
+mesh = SubResource("CapsuleMesh_hvv71")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_sccfm")

@@ -11,4 +11,3 @@ void fragment() {
 	ALBEDO = texture(color_gradient, vec2(gradient_uv)).rgb;
 	NORMAL_MAP = texture(normal_map, UV).xyz;
 }
-

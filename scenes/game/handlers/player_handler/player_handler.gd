@@ -28,7 +28,7 @@ func interact():
 	params.player = player
 	interact_object.interact(params)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player.global_position.y < -200.0:
 		clear_player()
 		var spawn_cmd = SpawnPlayerCommand.new()

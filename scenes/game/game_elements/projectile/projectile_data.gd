@@ -6,7 +6,7 @@ var origin : Vector3
 var origin_visual : Vector3
 var basis : Basis
 
-var speed : float = 100.0
+var speed : float = 400.0
 var lifetime : float = 3.0
 var scene : PackedScene
 
