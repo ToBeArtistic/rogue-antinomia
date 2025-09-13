@@ -3,14 +3,14 @@ extends Node3D
 class_name RogueAntinomia
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	#Start game
 	GameService.game_start(GameStartCommand.new())
 	pass
 
 var paused : bool = false
 
-func _input(event):
+func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
 		get_tree().quit()
 	if event.is_action_pressed("pause"):

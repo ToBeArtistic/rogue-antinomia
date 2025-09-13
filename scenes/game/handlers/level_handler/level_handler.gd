@@ -5,21 +5,21 @@ class_name LevelHandler
 @export var hub_area : PackedScene
 @export var levels : Array[PackedScene]
 
-var current_level
-var level_index = -1
+var current_level : Node3D
+var level_index : int = -1
 
 @export var spawn_rate : float = 2.0
 @export var spawn_timer : float = 0.0
 
 var objective_complete : bool = true
 
-func _ready():
+func _ready() -> void:
 	LevelService.level_handler = self
 	Signals.start_game.connect(select_hub_area)
 	Signals.player_interact_with.connect(_handle_player_interaction)
 	Signals.objective_completed.connect(_complete_objective)
 
-func _process(delta):
+func _process(delta : float) -> void:
 	if spawn_timer > spawn_rate:
 		spawn_enemy()
 	else:
@@ -39,39 +39,39 @@ func get_enemy_spawns() -> Array[Node3D]:
 			spawn_points.append(child)
 	return spawn_points
 
-func spawn_enemy():
+func spawn_enemy() -> void:
 	spawn_timer = 0.0
 	if objective_complete:
 		return
-	var enemy_spawn_points = get_enemy_spawns()
+	var enemy_spawn_points : Array[Node3D] = get_enemy_spawns()
 	if !enemy_spawn_points.size() > 0:
 		return
-	var spawn_point = get_enemy_spawns().pick_random()
+	var spawn_point : Node3D = get_enemy_spawns().pick_random()
 	if spawn_point != null:
 		spawn_point.add_child(EnemyService.get_random_enemy_instance())
 
-func clear_level():
+func clear_level() -> void:
 	if current_level != null:
 		current_level.queue_free()
 		
-func select_hub_area():
+func select_hub_area() -> void:
 	select_level(hub_area)
 	level_index = -1
 	Signals.hub_area_selected.emit()
 	
 
-func next_level():
+func next_level() -> void:
 	if level_index+1 == levels.size():
 		select_hub_area()
 		return
 	
-	var level_scene = levels[level_index+1]
+	var level_scene : PackedScene = levels[level_index+1]
 	select_level(level_scene)
 	level_index += 1
 	objective_complete = false
 	Signals.next_level_selected.emit()
 
-func select_level(level_scene : PackedScene):
+func select_level(level_scene : PackedScene) -> void:
 	if level_scene == null:
 		push_error("level not defined")
 		return
@@ -82,18 +82,18 @@ func select_level(level_scene : PackedScene):
 	spawn_player()
 	spawn_timer = 0.0
 
-func spawn_player():
-	var spawn_point = get_player_spawn()
-	var command = SpawnPlayerCommand.new()
+func spawn_player() -> void:
+	var spawn_point : Node3D = get_player_spawn()
+	var command : SpawnPlayerCommand = SpawnPlayerCommand.new()
 	command.spawn_point = spawn_point
 	PlayerService.spawn_player(command)
 
-func clear_player():
+func clear_player() -> void:
 	PlayerService.clear_player()
 
-func _handle_player_interaction(player:Player, object:Object):
+func _handle_player_interaction(_player:Player, object:Object) -> void:
 	if object is StartPortal && objective_complete:
 		next_level()
 
-func _complete_objective():
+func _complete_objective() -> void:
 	objective_complete = true
