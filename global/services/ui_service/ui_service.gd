@@ -2,13 +2,13 @@ extends Node
 
 var ui_handler : UIHandler
 
-func show_interact(command:ShowInteractCommand):
+func show_interact(command:ShowInteractCommand) -> void:
 	ui_handler.show_interact(command)
 
-func register_waypoint(waypoint:Waypoint):
+func register_waypoint(waypoint:Waypoint) -> void:
 	ui_handler.register_waypoint(waypoint)
 
-func remove_waypoint(waypoint:Waypoint):
+func remove_waypoint(waypoint:Waypoint) -> void:
 	ui_handler.remove_waypoint(waypoint)
 
 func get_waypoints() -> Array[Waypoint]:

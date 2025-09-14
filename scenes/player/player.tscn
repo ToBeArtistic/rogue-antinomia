@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjjgfm1x0mcev"]
 
 [ext_resource type="Script" uid="uid://bbe2touqu7ffw" path="res://scenes/player/player.gd" id="1_spe01"]
-[ext_resource type="PackedScene" uid="uid://bcpoe44pybdqr" path="res://scenes/camera/camera_player/camera_player.tscn" id="2_oyiqq"]
+[ext_resource type="PackedScene" uid="uid://bcpoe44pybdqr" path="res://scenes/player/camera/camera_player/camera_player.tscn" id="2_oyiqq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_245is"]
 

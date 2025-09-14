@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbqiqjlwkcpsc"]
-
-[ext_resource type="Script" uid="uid://bivf6e3sftaa0" path="res://scenes/common/look_at_player/look_at_player.gd" id="1_n3tiv"]
-
-[node name="look_at_player" type="Node3D"]
-script = ExtResource("1_n3tiv")

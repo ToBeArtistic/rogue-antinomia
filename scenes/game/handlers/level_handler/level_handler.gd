@@ -8,7 +8,7 @@ class_name LevelHandler
 var current_level : Node3D
 var level_index : int = -1
 
-@export var spawn_rate : float = 2.0
+@export var spawn_rate : float = 0.5
 @export var spawn_timer : float = 0.0
 
 var objective_complete : bool = true

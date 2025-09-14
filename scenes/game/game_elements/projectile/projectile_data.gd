@@ -12,10 +12,10 @@ var scene : PackedScene
 
 var damage : float = 1000.0
 
-static func create(origin : Vector3, origin_visual : Vector3, basis : Basis, scene : PackedScene) -> ProjectileData:
-	var data = ProjectileData.new()
-	data.origin = origin
-	data.origin_visual = origin_visual
-	data.basis = basis
-	data.scene = scene
+static func create(_origin : Vector3, _origin_visual : Vector3, _basis : Basis, _scene : PackedScene) -> ProjectileData:
+	var data : ProjectileData = ProjectileData.new()
+	data.origin = _origin
+	data.origin_visual = _origin_visual
+	data.basis = _basis
+	data.scene = _scene
 	return data

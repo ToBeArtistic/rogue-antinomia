@@ -34,3 +34,6 @@ signal create_projectile(data : ProjectileData)
 
 #hud
 signal create_damage_number(number:float)
+signal update_core_card(data:UICardData)
+signal update_aux_card(data:UICardData)
+signal create_enemy_healthbar(data:UIEnemyHealthBarData)

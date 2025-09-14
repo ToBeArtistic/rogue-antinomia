@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://duq7rrxj3saf5" path="res://scenes/game/game_elements/start_portal/PH_portal.png" id="1_noqy0"]
 [ext_resource type="Script" uid="uid://dfgiytkakk6nu" path="res://scenes/game/game_elements/start_portal/start_portal.gd" id="1_pbmy6"]
-[ext_resource type="Script" uid="uid://bbch5imp5e65q" path="res://scenes/common/interact/interact.gd" id="2_wakk4"]
+[ext_resource type="Script" uid="uid://bbch5imp5e65q" path="res://scenes/player/actions/interact/interact.gd" id="2_wakk4"]
 [ext_resource type="PackedScene" uid="uid://dahxdcckikwky" path="res://scenes/ui/hud/waypoints/waypoint.tscn" id="4_ahnwx"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fwold"]

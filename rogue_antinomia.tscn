@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://xpb3tur4sas2" path="res://rogue_antinomia.gd" id="1_to4l8"]
 [ext_resource type="PackedScene" uid="uid://6ybqg6o231vo" path="res://scenes/game/handlers/game_handler/game_handler.tscn" id="2_mgjq3"]
 [ext_resource type="PackedScene" uid="uid://celttwiftk4v5" path="res://scenes/game/handlers/environment_handler/environment_handler.tscn" id="3_dpuw0"]
-[ext_resource type="PackedScene" uid="uid://dr2vktk6qdn0j" path="res://scenes/artifacts/equipment/rifle/PH_rifle.tscn" id="3_q4enw"]
+[ext_resource type="PackedScene" uid="uid://dr2vktk6qdn0j" path="res://scenes/player/equipment/rifle/PH_rifle.tscn" id="3_q4enw"]
 [ext_resource type="PackedScene" uid="uid://blottet3adujl" path="res://scenes/game/handlers/level_handler/level_handler.tscn" id="4_edglg"]
 [ext_resource type="PackedScene" uid="uid://dt2qngpbn0lbw" path="res://scenes/game/handlers/player_handler/player_handler.tscn" id="5_44qv6"]
 [ext_resource type="PackedScene" uid="uid://civ2l6jqavi2s" path="res://scenes/game/handlers/camera_handler/camera_handler.tscn" id="6_d0ue6"]

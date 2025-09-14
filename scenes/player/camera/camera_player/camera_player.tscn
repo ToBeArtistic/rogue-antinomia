@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcpoe44pybdqr"]
+
+[ext_resource type="Script" uid="uid://ppkat51ha003" path="res://scenes/player/camera/camera_player/camera_player.gd" id="1_pex7r"]
+[ext_resource type="Script" uid="uid://demebl7fhiilp" path="res://scenes/player/camera/camera_bound_ui/hud_card_3d.gd" id="3_4tkoh"]
+[ext_resource type="PackedScene" uid="uid://dq4o54f1xlxf" path="res://scenes/ui/cards/template/ui_card.tscn" id="3_r2dm2"]
+[ext_resource type="Script" uid="uid://dlrmiyts15uc6" path="res://scenes/ui/cards/template/ui_card_data.gd" id="4_4nt8r"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_weai1"]
+viewport_path = NodePath("3d_card_ui_elements/core_card/core_card_sprite/core_card_viewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4tkoh"]
+viewport_path = NodePath("3d_card_ui_elements/aux_card/aux_card_sprite/aux_card_viewport")
+
+[node name="camera_player" type="Camera3D" node_paths=PackedStringArray("interact_raycast")]
+fov = 85.0
+script = ExtResource("1_pex7r")
+interact_raycast = NodePath("interact_raycast")
+
+[node name="interact_raycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2
+
+[node name="3d_card_ui_elements" type="Node3D" parent="."]
+
+[node name="core_card" type="Node3D" parent="3d_card_ui_elements" node_paths=PackedStringArray("card_data", "card_ui")]
+transform = Transform3D(0.122932, 0.0383959, -0.159973, 0.0200822, 0.210451, 0.0601124, 0.15929, -0.0561642, 0.115881, 0.876691, -0.26263, -1.08567)
+script = ExtResource("3_4tkoh")
+card_data = NodePath("core_card_data")
+card_ui = NodePath("core_card_sprite/core_card_viewport/card_ui")
+mode = 1
+
+[node name="core_card_sprite" type="Sprite3D" parent="3d_card_ui_elements/core_card"]
+transform = Transform3D(1, 0, -2.98023e-08, 1.49012e-08, 1, 0, 0, -2.98023e-08, 1, -0.171319, -0.0300722, 0.162515)
+texture = SubResource("ViewportTexture_weai1")
+
+[node name="core_card_viewport" type="SubViewport" parent="3d_card_ui_elements/core_card/core_card_sprite"]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="card_ui" parent="3d_card_ui_elements/core_card/core_card_sprite/core_card_viewport" instance=ExtResource("3_r2dm2")]
+
+[node name="core_card_data" type="Node" parent="3d_card_ui_elements/core_card"]
+script = ExtResource("4_4nt8r")
+text_name = "CORE CARD"
+text_duration = " "
+text_charges = " "
+text_control_hint = "[ LMB ]"
+metadata/_custom_type_script = "uid://c2mo3jwu88iqx"
+
+[node name="aux_card" type="Node3D" parent="3d_card_ui_elements" node_paths=PackedStringArray("card_data", "card_ui")]
+transform = Transform3D(0.0282537, 0.0261241, -0.063888, -0.0103808, 0.0711027, 0.0234732, 0.0428205, 3.83779e-08, 0.0478448, 0.728073, -0.550149, -0.840551)
+script = ExtResource("3_4tkoh")
+card_data = NodePath("aux_card_data")
+card_ui = NodePath("aux_card_sprite/aux_card_viewport/card_ui")
+mode = 2
+
+[node name="aux_card_sprite" type="Sprite3D" parent="3d_card_ui_elements/aux_card"]
+transform = Transform3D(1, 2.45981e-08, -8.9407e-08, -1.89131e-08, 1, -1.07966e-08, 0, -1.16345e-08, 0.999999, 2.8805, 2.51675, 2.84408)
+texture = SubResource("ViewportTexture_4tkoh")
+
+[node name="aux_card_viewport" type="SubViewport" parent="3d_card_ui_elements/aux_card/aux_card_sprite"]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="card_ui" parent="3d_card_ui_elements/aux_card/aux_card_sprite/aux_card_viewport" instance=ExtResource("3_r2dm2")]
+
+[node name="aux_card_data" type="Node" parent="3d_card_ui_elements/aux_card"]
+script = ExtResource("4_4nt8r")
+text_name = "AUX CARD"
+text_duration = " "
+text_charges = " "
+text_control_hint = "[ RMB ]"
+metadata/_custom_type_script = "uid://c2mo3jwu88iqx"

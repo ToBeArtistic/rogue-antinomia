@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://dq4o54f1xlxf"]
+
+[ext_resource type="Script" uid="uid://cjg5exetlp1da" path="res://scenes/ui/cards/template/ui_card.gd" id="1_5eejn"]
+[ext_resource type="Texture2D" uid="uid://cotvbdx74rv2u" path="res://scenes/ui/cards/template/default_card_texture.png" id="1_q5lhs"]
+[ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_6sg06"]
+[ext_resource type="Script" uid="uid://dqyhdqmg3cl07" path="res://scenes/ui/cards/template/ui_card_image.gd" id="2_q5lhs"]
+[ext_resource type="Script" uid="uid://ck8loq1f0ukye" path="res://scenes/ui/cards/template/ui_card_text.gd" id="3_5eejn"]
+[ext_resource type="PackedScene" uid="uid://q5ki4sfyyw5w" path="res://scenes/ui/components/charge_bar.tscn" id="6_u3hfo"]
+
+[sub_resource type="Gradient" id="Gradient_xfec2"]
+offsets = PackedFloat32Array(0.103896, 1)
+colors = PackedColorArray(0, 0, 0, 0.419608, 1, 1, 1, 0.188235)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y7psx"]
+gradient = SubResource("Gradient_xfec2")
+fill_from = Vector2(0, 0.0917431)
+fill_to = Vector2(0, 0.495413)
+repeat = 2
+
+[sub_resource type="Gradient" id="Gradient_y7psx"]
+colors = PackedColorArray(0, 0, 0, 0.607843, 0.978425, 0.308714, 0.000131108, 0.266667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sxyb2"]
+gradient = SubResource("Gradient_y7psx")
+fill_from = Vector2(0.527523, 1)
+fill_to = Vector2(0.518349, 0)
+
+[node name="card_ui" type="Control" node_paths=PackedStringArray("text_element", "image_element", "charge_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5eejn")
+text_element = NodePath("controls/text_container")
+image_element = NodePath("controls/image")
+charge_bar = NodePath("controls/charge_bar")
+
+[node name="controls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.5
+offset_top = -146.0
+offset_right = 106.5
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="image" type="TextureRect" parent="controls"]
+z_index = -3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.64597
+offset_bottom = 4.64597
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_q5lhs")
+expand_mode = 5
+stretch_mode = 5
+script = ExtResource("2_q5lhs")
+
+[node name="alpha_gradient" type="TextureRect" parent="controls/image"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_y7psx")
+
+[node name="background_saturation" type="TextureRect" parent="controls/image"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_sxyb2")
+
+[node name="border" type="ColorRect" parent="controls/image"]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 0.708069
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+
+[node name="text_container" type="Control" parent="controls" node_paths=PackedStringArray("text_name", "text_duration", "text_charges", "text_control_hint")]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.64597
+offset_bottom = -4.64597
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_5eejn")
+text_name = NodePath("name")
+text_duration = NodePath("duration")
+text_charges = NodePath("charges")
+text_control_hint = NodePath("control_hint")
+
+[node name="name" type="RichTextLabel" parent="controls/text_container"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme = ExtResource("2_6sg06")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 28
+text = "DEFAULT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="duration" type="RichTextLabel" parent="controls/text_container"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -378.5
+offset_top = 28.0
+offset_right = 383.5
+offset_bottom = 82.0
+grow_horizontal = 2
+theme = ExtResource("2_6sg06")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 20
+text = "0.0s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="charges" type="RichTextLabel" parent="controls/text_container"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -45.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_6sg06")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 25
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="control_hint" type="RichTextLabel" parent="controls/text_container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_top = -44.0
+offset_right = 51.5
+offset_bottom = -9.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/normal_font_size = 18
+text = "[ 1 ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="charge_bar" parent="controls" instance=ExtResource("6_u3hfo")]
+layout_mode = 1

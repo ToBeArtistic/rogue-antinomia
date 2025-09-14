@@ -1,15 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgxlg1n68jwwm"]
+[gd_scene load_steps=18 format=3 uid="uid://dgxlg1n68jwwm"]
 
 [ext_resource type="Script" uid="uid://bkdrh8sytq402" path="res://scenes/ui/hud/hud.gd" id="1_r3di6"]
-[ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle.gd" id="1_w5mcl"]
+[ext_resource type="Script" uid="uid://dwqhmjktjpy" path="res://scenes/ui/hud/reticle/reticle.gd" id="1_w5mcl"]
 [ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_2wu1p"]
-[ext_resource type="Script" uid="uid://djvlb2s18r8sb" path="res://scenes/ui/hud/score.gd" id="2_83gx8"]
-[ext_resource type="Script" uid="uid://bqxs6w710ya53" path="res://scenes/ui/hud/waypoints.gd" id="2_edler"]
-[ext_resource type="Script" uid="uid://djsv6vqmgftq7" path="res://scenes/ui/hud/health_amount_text.gd" id="3_4m4yb"]
-[ext_resource type="Script" uid="uid://cchty2ljuo4o2" path="res://scenes/ui/hud/hp_progress_bar.gd" id="3_todbw"]
-[ext_resource type="PackedScene" uid="uid://dq4o54f1xlxf" path="res://scenes/cards/ui_card.tscn" id="8_a660p"]
+[ext_resource type="Script" uid="uid://djvlb2s18r8sb" path="res://scenes/ui/hud/elements/score.gd" id="2_83gx8"]
+[ext_resource type="Script" uid="uid://bqxs6w710ya53" path="res://scenes/ui/hud/waypoints/waypoints.gd" id="2_edler"]
+[ext_resource type="Script" uid="uid://djsv6vqmgftq7" path="res://scenes/ui/hud/elements/health_amount_text.gd" id="3_4m4yb"]
+[ext_resource type="Script" uid="uid://cchty2ljuo4o2" path="res://scenes/ui/hud/elements/hp_progress_bar.gd" id="3_todbw"]
+[ext_resource type="Script" uid="uid://c4t58qkpamyst" path="res://scenes/ui/hud/hud_controls.gd" id="5_7kkr4"]
+[ext_resource type="PackedScene" uid="uid://dq4o54f1xlxf" path="res://scenes/ui/cards/template/ui_card.tscn" id="8_a660p"]
 [ext_resource type="Shader" uid="uid://cvj8cfoandqy8" path="res://resources/shaders/speed_line_shader.gdshader" id="8_e7gie"]
-[ext_resource type="Script" uid="uid://drfuu41xi4ns0" path="res://scenes/ui/hud/speedlines.gd" id="9_swth0"]
+[ext_resource type="Script" uid="uid://drfuu41xi4ns0" path="res://scenes/ui/hud/effects/speedlines.gd" id="9_swth0"]
+[ext_resource type="PackedScene" uid="uid://c23w7t7r0yl58" path="res://scenes/ui/components/damage_number.tscn" id="10_o6s6k"]
+[ext_resource type="Script" uid="uid://oju3oew0m8hy" path="res://scenes/ui/hud/enemy_healthbars.gd" id="13_o6s6k"]
+[ext_resource type="PackedScene" uid="uid://dc1dlavcn5jdf" path="res://scenes/ui/components/enemy_healthbar.tscn" id="14_ct28o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_e7gie"]
 noise_type = 5
@@ -30,14 +34,13 @@ shader_parameter/mask_size = 0.21
 shader_parameter/mask_edge = 0.938
 shader_parameter/animation_speed = 20.0
 
-[node name="hud" type="CanvasLayer" node_paths=PackedStringArray("top", "bottom", "left", "right", "center", "damage_number_textbox", "aux_card_container")]
+[node name="hud" type="CanvasLayer" node_paths=PackedStringArray("top", "bottom", "left", "right", "center", "aux_card_container")]
 script = ExtResource("1_r3di6")
 top = NodePath("controls/top")
 bottom = NodePath("controls/bottom")
 left = NodePath("controls/left")
 right = NodePath("controls/right")
 center = NodePath("controls/center")
-damage_number_textbox = NodePath("health_bar/damage_number")
 aux_card_container = NodePath("controls/aux_card_container")
 
 [node name="health_bar" type="Control" parent="."]
@@ -128,19 +131,7 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 script = ExtResource("3_4m4yb")
 
-[node name="damage_number" type="RichTextLabel" parent="health_bar"]
-layout_mode = 0
-offset_left = -360.0
-offset_top = -477.0
-offset_right = 4.0
-offset_bottom = -266.0
-rotation = -0.232001
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/normal_font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="controls" type="Control" parent="."]
+[node name="controls" type="Control" parent="." node_paths=PackedStringArray("dps_number_element")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,6 +141,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
+script = ExtResource("5_7kkr4")
+damage_number_scene = ExtResource("10_o6s6k")
+dps_number_element = NodePath("dps_damage_number")
 
 [node name="top" type="Control" parent="controls"]
 layout_mode = 1
@@ -329,6 +323,35 @@ scale = Vector2(0.65, 0.65)
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
+[node name="damage_number" parent="controls" instance=ExtResource("10_o6s6k")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 364.0
+offset_bottom = 211.0
+
+[node name="dps_damage_number" type="RichTextLabel" parent="controls"]
+z_index = 4
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = 27.0
+offset_right = -37.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.940103, 0.728881, 0.374823, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 40
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="speedlines" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_swth0")
 anchors_preset = 15
@@ -338,3 +361,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_swth0")
+
+[node name="enemy_healthbars" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_o6s6k")
+healthbar_scene = ExtResource("14_ct28o")

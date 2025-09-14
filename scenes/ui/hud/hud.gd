@@ -17,10 +17,10 @@ var damage_number_timer : Timer
 @export var aux_card_container : Control
 
 func _ready() -> void:
-	Signals.create_damage_number.connect(create_damage_number)
-	damage_number_timer = Timer.new()
-	add_child(damage_number_timer)
-	damage_number_timer.timeout.connect(reset_damage_number_text)
+	#Signals.create_damage_number.connect(create_damage_number)
+	#damage_number_timer = Timer.new()
+	#add_child(damage_number_timer)
+	#damage_number_timer.timeout.connect(reset_damage_number_text)
 	aux_card_container.visible = false
 
 func _process(_delta: float) -> void:
@@ -31,15 +31,15 @@ func _process(_delta: float) -> void:
 
 
 func get_clamped_vector2(coordinates:Vector2) -> Vector2:
-	var x = clamp(coordinates.x, left.position.x+margin, right.position.x-margin)
-	var y = clamp(coordinates.y, top.position.y+margin, bottom.position.y-margin)
+	var x : float = clamp(coordinates.x, left.position.x+margin, right.position.x-margin)
+	var y : float = clamp(coordinates.y, top.position.y+margin, bottom.position.y-margin)
 	var clamped : Vector2 = Vector2(x,y)
 	return clamped
 
 func get_edge_vector2(coordinates:Vector2, only_sides:bool) -> Vector2:
-	var clamped = get_clamped_vector2(coordinates)
-	var closest_to_top = clamped.y > (bottom.position.y / 2.0)
-	var closest_to_left = left.position.x + clamped.x > (right.position.x / 2.0)
+	var clamped : Vector2 = get_clamped_vector2(coordinates)
+	var closest_to_top : float = clamped.y > (bottom.position.y / 2.0)
+	var closest_to_left : float = left.position.x + clamped.x > (right.position.x / 2.0)
 	
 	var y : float
 	var x : float
@@ -57,10 +57,13 @@ func get_edge_vector2(coordinates:Vector2, only_sides:bool) -> Vector2:
 	return Vector2(x, y)
 
 
-func create_damage_number(number : float):
+func create_damage_number(number : float) -> void:
 	damage_number = number
 	damage_number_textbox.text = str(damage_number).pad_decimals(-1)
 	damage_number_timer.start(0.5)
 
-func reset_damage_number_text():
+func reset_damage_number_text() -> void:
 	damage_number_textbox.text = ""
+
+func get_center() -> Control:
+	return center

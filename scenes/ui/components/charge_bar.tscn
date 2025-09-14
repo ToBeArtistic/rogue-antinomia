@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://q5ki4sfyyw5w"]
+
+[ext_resource type="Script" uid="uid://bflxnhn8wj7v8" path="res://scenes/ui/components/charge_bar.gd" id="1_87uwq"]
+[ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_dwwb7"]
+
+[node name="charge_bar" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = -22.0
+offset_right = 0.5
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_87uwq")
+
+[node name="progress_bar_left" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -6.5
+offset_bottom = 6.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_dwwb7")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="progress_bar_left"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -7.5
+offset_right = 1.0
+offset_bottom = 7.5
+grow_vertical = 2
+
+[node name="progress_bar_right" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -6.5
+offset_right = 100.0
+offset_bottom = 6.5
+grow_vertical = 2
+theme = ExtResource("2_dwwb7")
+value = 100.0
+show_percentage = false
+
+[node name="ColorRect2" type="ColorRect" parent="progress_bar_right"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -7.5
+offset_right = 1.0
+offset_bottom = 7.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="number" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -20.0
+offset_right = 128.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_dwwb7")
+theme_override_constants/outline_size = 10
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false

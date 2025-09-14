@@ -1,0 +1,136 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc1dlavcn5jdf"]
+
+[ext_resource type="Script" uid="uid://bbqv27fpdqlpi" path="res://scenes/ui/components/enemy_healthbar.gd" id="1_qqigg"]
+[ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_qqigg"]
+[ext_resource type="StyleBox" uid="uid://dyw5jxiq1mvud" path="res://scenes/ui/cards/template/red_stylebox.tres" id="3_qqigg"]
+
+[node name="enemy_healthbar" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = -22.0
+offset_right = 0.5
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_qqigg")
+
+[node name="progress_bar_left" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -6.5
+offset_bottom = 6.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_qqigg")
+theme_override_styles/fill = ExtResource("3_qqigg")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="progress_bar_left"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -7.5
+offset_right = 1.0
+offset_bottom = 7.5
+grow_vertical = 2
+
+[node name="progress_bar_right" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -6.5
+offset_right = 100.0
+offset_bottom = 6.5
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_qqigg")
+theme_override_styles/fill = ExtResource("3_qqigg")
+value = 100.0
+show_percentage = false
+
+[node name="ColorRect2" type="ColorRect" parent="progress_bar_right"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -7.5
+offset_right = 1.0
+offset_bottom = 7.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="defense_bar_right" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 80.0
+offset_bottom = -8.0
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+theme = ExtResource("2_qqigg")
+value = 100.0
+show_percentage = false
+
+[node name="defense_bar_left" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -20.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+theme = ExtResource("2_qqigg")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="number" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -20.0
+offset_right = 128.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_qqigg")
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 18
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false

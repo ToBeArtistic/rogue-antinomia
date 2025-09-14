@@ -4,7 +4,7 @@ class_name GameHandler
 
 @export var ph_rifle : PackedScene
 
-var goal : int = 2
+var goal : int = 30
 var current : int = 0
 
 func _ready():
