@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr2vktk6qdn0j"]
+[gd_scene load_steps=7 format=3 uid="uid://dr2vktk6qdn0j"]
 
 [ext_resource type="Script" uid="uid://cu5m5kxxtlenx" path="res://scenes/player/equipment/rifle/PH_rifle.gd" id="1_cg1kr"]
 [ext_resource type="Texture2D" uid="uid://csgysl4pmqxm4" path="res://scenes/player/equipment/rifle/PH_gun.png" id="2_covxg"]
 [ext_resource type="PackedScene" uid="uid://70yogy4rn1l2" path="res://scenes/game/game_elements/projectile/projectile.tscn" id="2_slqr7"]
 [ext_resource type="Texture2D" uid="uid://datmbbdfeas6j" path="res://scenes/ui/cards/scenes/spellcasting/card_spellcasting.png" id="3_ei3g4"]
 [ext_resource type="Texture2D" uid="uid://c2hkh6stan4qg" path="res://scenes/ui/cards/scenes/spellcasting/card_ph_rifle.png" id="4_vt0er"]
+[ext_resource type="AudioStream" uid="uid://citmhdy1ukll" path="res://resources/sound_effects/789221__modusmogulus__small-projectile-whizpew.wav" id="6_0wj3p"]
 
 [node name="PH_rifle" type="Node3D" node_paths=PackedStringArray("sprite", "raycast_aim", "projectile_creation_point")]
 script = ExtResource("1_cg1kr")
@@ -28,3 +29,6 @@ transform = Transform3D(5, -1.07288e-06, 0, 2.38419e-07, 5, 1.3411e-07, -1.19209
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -20)
+
+[node name="AudioStreamPlayer3D_hitsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_0wj3p")
