@@ -9,18 +9,21 @@ class_name UICard
 var card_data : UICardData
 
 func ready() -> void:
-    card_data = UICardData.new()
+	card_data = UICardData.new()
 
-func update_text(new_data : UICardData) -> void:
-    if new_data.progress_visible:
-        text_element.text_charges.visible = false
-    else:
-        text_element.text_charges.visible = true
-    text_element.update(new_data)
+func update(new_data : UICardData) -> void:
+	if new_data.progress_visible:
+		text_element.text_charges.visible = false
+	else:
+		text_element.text_charges.visible = true
+	text_element.update(new_data)
 
-    charge_bar.update(
-        new_data.progress_visible, 
-        new_data.progress_percentage, 
-        new_data.progress_text
-    )
-    
+	charge_bar.update(
+		new_data.progress_visible, 
+		new_data.progress_percentage, 
+		new_data.progress_text
+	)
+
+	if new_data.image:
+		image_element.texture = new_data.image
+	

@@ -20,6 +20,9 @@ var recharge_speed : float = 0.7
 var recharge_progress : float = 0.0
 var recharging : bool = false
 
+@export var aux_image : Texture2D
+@export var core_image : Texture2D
+
 @export var fire_rate : float = 0.05
 var _fire_rate_progress : float = 0.0
 
@@ -68,7 +71,7 @@ func _handle_firing(delta : float) -> void:
 	_on_equipment_primary()
 
 func _handle_recharge(delta : float) -> void:
-	if Input.is_action_pressed("recharge") or charge == 0:
+	if not recharging and Input.is_action_pressed("recharge") or charge == 0:
 		recharging = true
 
 	if recharging:
@@ -99,16 +102,27 @@ func _on_equipment_primary() -> void:
 	Signals.create_projectile.emit(data)
 	
 func _update_ui() -> void:
-	var data : UICardData = UICardData.new()
-	data.text_name = "PH_Rifle"
-	data.text_control_hint = "[LMB]"
-	data.text_charges = str(charge)
-	data.progress_visible = false
+	#Core
+	var core_card_data : UICardData = UICardData.new()
+	core_card_data.text_name = "PH_Rifle"
+	core_card_data.text_control_hint = "[LMB]"
+	core_card_data.text_charges = str(charge)
+	core_card_data.progress_visible = false
+	core_card_data.image = core_image
 
 	if recharging or charge == 0:
-		data.text_control_hint = " "
-		data.progress_percentage = recharge_progress/recharge_speed*100.0
-		data.progress_visible = true
-		data.progress_text = " "#"%0.2f" % recharge_progress
+		core_card_data.text_control_hint = " "
+		core_card_data.progress_percentage = recharge_progress/recharge_speed*100.0
+		core_card_data.progress_visible = true
+		core_card_data.progress_text = " "#"%0.2f" % recharge_progress
 
-	Signals.update_core_card.emit(data)
+	Signals.update_core_card.emit(core_card_data)
+
+	#Aux
+	var aux_card_data : UICardData = UICardData.new()
+	aux_card_data.text_name = "PH_Rifle_Spellcasting"
+	aux_card_data.text_control_hint = "[RMB]"
+	aux_card_data.text_charges = " "
+	aux_card_data.progress_visible = false
+	aux_card_data.image = aux_image
+	Signals.update_aux_card.emit(aux_card_data)

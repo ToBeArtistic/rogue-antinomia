@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr2vktk6qdn0j"]
+[gd_scene load_steps=6 format=3 uid="uid://dr2vktk6qdn0j"]
 
 [ext_resource type="Script" uid="uid://cu5m5kxxtlenx" path="res://scenes/player/equipment/rifle/PH_rifle.gd" id="1_cg1kr"]
 [ext_resource type="Texture2D" uid="uid://csgysl4pmqxm4" path="res://scenes/player/equipment/rifle/PH_gun.png" id="2_covxg"]
 [ext_resource type="PackedScene" uid="uid://70yogy4rn1l2" path="res://scenes/game/game_elements/projectile/projectile.tscn" id="2_slqr7"]
+[ext_resource type="Texture2D" uid="uid://datmbbdfeas6j" path="res://scenes/ui/cards/scenes/spellcasting/card_spellcasting.png" id="3_ei3g4"]
+[ext_resource type="Texture2D" uid="uid://c2hkh6stan4qg" path="res://scenes/ui/cards/scenes/spellcasting/card_ph_rifle.png" id="4_vt0er"]
 
 [node name="PH_rifle" type="Node3D" node_paths=PackedStringArray("sprite", "raycast_aim", "projectile_creation_point")]
 script = ExtResource("1_cg1kr")
@@ -10,6 +12,8 @@ sprite = NodePath("sprite_point/Sprite3D")
 raycast_aim = NodePath("RayCast3D")
 projectile_creation_point = NodePath("sprite_point/Sprite3D/emit_point")
 projectile_scene = ExtResource("2_slqr7")
+aux_image = ExtResource("3_ei3g4")
+core_image = ExtResource("4_vt0er")
 
 [node name="sprite_point" type="Node3D" parent="."]
 transform = Transform3D(0.246623, 0.0506244, -0.967788, -0.201078, 0.979575, 1.84121e-09, 0.948022, 0.194601, 0.251765, 0.418846, -0.21911, -0.556452)

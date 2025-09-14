@@ -10,3 +10,5 @@ class_name UICardData
 @export var progress_percentage : float
 @export var progress_visible : bool
 @export var progress_text : String
+
+@export var image : Texture2D

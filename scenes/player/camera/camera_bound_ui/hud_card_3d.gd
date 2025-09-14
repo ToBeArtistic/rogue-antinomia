@@ -9,10 +9,8 @@ class_name HudCard3D
 enum card_mode {NONE, CORE_CARD, AUX_CARD, CANTRIP, SPELL1, SPELL2, SPELL3, SPELL4}
 
 func _ready() -> void:
-    print_debug("try update")
     if card_data and card_ui:
-        print_debug("update text 1")
-        card_ui.update_text(card_data)
+        card_ui.update(card_data)
     
     match mode:
         card_mode.CORE_CARD:
@@ -24,5 +22,5 @@ func _ready() -> void:
 
 func update_card(data : UICardData) -> void:
     card_data = data
-    card_ui.update_text(data)
+    card_ui.update(data)
     
