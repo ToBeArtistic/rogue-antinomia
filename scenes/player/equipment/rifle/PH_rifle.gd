@@ -11,7 +11,8 @@ var bobEnabled : bool = false
 @export var sprite : Sprite3D
 @export var raycast_aim : RayCast3D
 @export var projectile_creation_point : Node3D
-@export var projectile_scene : PackedScene
+#@export var projectile_scene : PackedScene
+@export var projectile_data : ProjectileData
 var sprite_start_x : float
 var sprite_start_y : float
 var charge : int = 30
@@ -43,6 +44,8 @@ func _process(delta : float) -> void:
 	_update_ui()
 
 func _handle_bobbing(delta : float) -> void:
+	if not sprite:
+		return
 	if bobEnabled:
 		bob += delta
 		var boby : float = bob * bobbing_speed_y
@@ -92,14 +95,12 @@ func _on_equipment_primary() -> void:
 	_fire_rate_progress -= fire_rate
 	charge -= 1
 
-	var data : ProjectileData = ProjectileData.create(
-		global_position, 
-		projectile_creation_point.global_position, 
-		global_transform.basis, 
-		projectile_scene
-	)
-	data.damage = 30 + randi_range(5,17)
-	Signals.create_projectile.emit(data)
+
+	projectile_data.origin = global_position
+	projectile_data.origin_visual = projectile_creation_point.global_position
+	projectile_data.basis = global_transform.basis
+	Signals.create_projectile.emit(projectile_data)
+
 	
 func _update_ui() -> void:
 	#Core

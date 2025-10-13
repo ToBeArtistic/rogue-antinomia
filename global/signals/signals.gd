@@ -19,7 +19,7 @@ signal player_interact_with(player:Player, object:Object)
 signal player_select_equipment(player:Player, type : Enum.EQUIPMENT)
 signal on_player_move(player : Player)
 signal on_player_stop(player : Player)
-signal player_data_updated(player : Player)
+signal player_data_updated(player : PlayerData)
 
 #camera
 signal active_camera_changed(camera : Camera3D)

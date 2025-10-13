@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnmlmk8c6mcnp"]
+
+[ext_resource type="Script" uid="uid://fis4digd375v" path="res://scenes/player/abilities/ability_handler.gd" id="1_kqtxr"]
+
+[node name="AbilityHandler" type="Node"]
+script = ExtResource("1_kqtxr")
+
+[node name="CoreHandler" type="Node" parent="."]
+
+[node name="SpellHandler" type="Node" parent="."]
+
+[node name="PassiveHandler" type="Node" parent="."]

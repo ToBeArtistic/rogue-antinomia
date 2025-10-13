@@ -32,9 +32,9 @@ func _process(_delta: float) -> void:
 	screenspace_vector = UIService.get_hud().get_clamped_vector2(screenspace_vector)
 	position = screenspace_vector + Vector2(0, -100)
 	var distance_from_center : float = (UIService.get_hud().get_center().position - position).length()
-	if distance_from_center > 90.0: 
+	if distance_from_center > 170.0: 
 		visible = false
 	else:
 		visible = true
-	
-	z_index = 102-int(distance_from_center)
+		scale = Vector2(1.0,1.0)*(180-distance_from_center)/110.0
+		z_index = 100-int(distance_from_center)

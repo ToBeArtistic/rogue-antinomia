@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://70yogy4rn1l2"]
+[gd_scene load_steps=7 format=3 uid="uid://70yogy4rn1l2"]
 
 [ext_resource type="Script" uid="uid://cjkn6kune3dju" path="res://scenes/game/game_elements/projectile/projectile.gd" id="1_ji2mc"]
 [ext_resource type="AudioStream" uid="uid://citmhdy1ukll" path="res://resources/sound_effects/789221__modusmogulus__small-projectile-whizpew.wav" id="2_el30w"]
+[ext_resource type="AudioStream" uid="uid://doum84ah2xbvx" path="res://resources/sound_effects/171236__alukahn__gunshot2.wav" id="3_448pc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gowgq"]
 size = Vector3(0.165, 10.9983, 0.12)
@@ -15,12 +16,13 @@ emission = Color(0.964161, 0.904851, 0.862462, 1)
 emission_energy_multiplier = 16.0
 rim_tint = 0.0
 
-[node name="projectile" type="Node3D" node_paths=PackedStringArray("projectile_visual", "hitbox", "hitbox_collision_object", "hit_sound")]
+[node name="projectile" type="Node3D" node_paths=PackedStringArray("projectile_visual", "hitbox", "hitbox_collision_object", "hit_sound", "fire_sound")]
 script = ExtResource("1_ji2mc")
 projectile_visual = NodePath("projectile_body/projectile_visual")
 hitbox = NodePath("projectile_body")
 hitbox_collision_object = NodePath("projectile_body/hitbox")
 hit_sound = NodePath("AudioStreamPlayer3D_hitsound")
+fire_sound = NodePath("AudioStreamPlayer3D_firesound")
 
 [node name="hit_raycast" type="RayCast3D" parent="."]
 visible = false
@@ -45,4 +47,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sccfm")
 
 [node name="AudioStreamPlayer3D_hitsound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_el30w")
-volume_db = -5.0
+volume_db = -10.0
+
+[node name="AudioStreamPlayer3D_firesound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_448pc")
+pitch_scale = 0.8

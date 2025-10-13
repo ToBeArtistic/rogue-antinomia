@@ -7,34 +7,34 @@ class_name GameHandler
 var goal : int = 30
 var current : int = 0
 
-func _ready():
+func _ready() -> void:
 	GameService.game_handler = self
 	Signals.player_select_equipment.connect(_set_player_equipment)
 	Signals.create_projectile.connect(create_projectile)
 	Signals.next_level_selected.connect(_reset_objective)
 	Signals.enemy_died.connect(_increase_score)
 
-func game_start(command:GameStartCommand):
+func game_start(_command:GameStartCommand) -> void:
 	Signals.start_game.emit()
 
-func _set_player_equipment(player : Player, type : Enum.EQUIPMENT):
+func _set_player_equipment(player : Player, type : Enum.EQUIPMENT) -> void:
 	match type:
 		Enum.EQUIPMENT.PH_RIFLE:
 			_apply_equipment_scene_to_player(player, ph_rifle)
 
-func _apply_equipment_scene_to_player(player : Player, scene : PackedScene):
-	var instance = scene.instantiate()
+func _apply_equipment_scene_to_player(player : Player, scene : PackedScene) -> void:
+	var instance : Node3D = scene.instantiate()
 	player.camera.add_child(instance)
 
-func create_projectile(data : ProjectileData):
-	var instance = data.scene.instantiate() as Projectile
+func create_projectile(data : ProjectileData) -> void:
+	var instance : Projectile = data.scene.instantiate() as Projectile
 	instance.apply_data(data)
 	add_child(instance)
 	
-func _reset_objective():
+func _reset_objective() -> void:
 	current = 0
 	
-func _increase_score(enemy:Enemy):
+func _increase_score(_enemy:Enemy) -> void:
 	current += 1
 	if current >= goal:
 		Signals.objective_completed.emit()

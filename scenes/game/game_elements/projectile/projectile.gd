@@ -7,6 +7,10 @@ class_name Projectile
 @export var hitbox : RigidBody3D
 @export var hitbox_collision_object : Node3D
 @export var hit_sound : AudioStreamPlayer3D
+@export var fire_sound : AudioStreamPlayer3D
+@export var target_mode : PROJECTILE_TARGETABLE = PROJECTILE_TARGETABLE.TARGET_ENEMY
+
+enum PROJECTILE_TARGETABLE {TARGET_PLAYER, TARGET_ENEMY, TARGET_OBJECT}
 
 var current_lifetime : float = 0.0
 var projectile_data : ProjectileData
@@ -25,6 +29,11 @@ func _ready() -> void:
 	lifetime_timer.wait_time = projectile_data.lifetime
 	lifetime_timer.timeout.connect(post_hit)
 	add_child(lifetime_timer)
+	lifetime_timer.start()
+
+	if fire_sound:
+		fire_sound.pitch_scale += randf_range(-0.1, 0.1)
+		fire_sound.play()
 
 func apply_data(data:ProjectileData) -> void:
 	projectile_data = data
@@ -37,6 +46,9 @@ func apply_data(data:ProjectileData) -> void:
 
 
 func _process(delta : float) -> void:
+	if not projectile_data:
+		return
+
 	if has_hit:
 		pass
 	
@@ -58,21 +70,32 @@ func check_raycast() -> void:
 		handle_hit(collider)
 
 func handle_hit(node : Node) -> void:
-	if node is Enemy:
-		node.hit(projectile_data)
-		play_hit_sound()
-		post_hit()
-	if node is not Player:
-		play_hit_sound()
-		post_hit()
+	var hit_enemy : bool = node is Enemy and target_mode == PROJECTILE_TARGETABLE.TARGET_ENEMY
+	var hit_player : bool = node is Player and target_mode == PROJECTILE_TARGETABLE.TARGET_PLAYER
+	var hit_object : bool = target_mode == PROJECTILE_TARGETABLE.TARGET_OBJECT
+
+	#We ignore enemy nodes if we're not trying to target them, and the same for player nodes
+	var avoid_enemy : bool = node is Enemy and target_mode != PROJECTILE_TARGETABLE.TARGET_ENEMY
+	var avoid_player : bool = node is Player and target_mode != PROJECTILE_TARGETABLE.TARGET_PLAYER
+
+	if avoid_enemy or avoid_player:
+		return
+	if hit_enemy or hit_player or hit_object:
+		if projectile_data:
+			node.hit(projectile_data)
+	play_hit_sound()
+	post_hit()
 	
 func play_hit_sound() -> void:
-	hit_sound.play()
+	if hit_sound:
+		hit_sound.pitch_scale = 0.3 + randf_range(-0.1, 0.1)
+		hit_sound.play()
 
 #function handles tasks that should be done when projectile is about to be removed
 func post_hit() -> void:
 	has_hit = true
 	var timer : Timer = Timer.new()
-	timer.wait_time = 0.3
+	timer.wait_time = 0.8
 	timer.timeout.connect(queue_free)
 	add_child(timer)
+	timer.start()

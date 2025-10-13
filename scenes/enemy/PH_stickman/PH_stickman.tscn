@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1vv3tylnim2e"]
+[gd_scene load_steps=8 format=3 uid="uid://c1vv3tylnim2e"]
 
 [ext_resource type="Script" uid="uid://d17cc16yv6ext" path="res://scenes/enemy/PH_stickman/PH_stickman.gd" id="1_ix88n"]
 [ext_resource type="Texture2D" uid="uid://dj07xox4s86ro" path="res://scenes/enemy/PH_stickman/sticcboi.png" id="2_1sw7n"]
 [ext_resource type="Script" uid="uid://bonsbj73g3r2m" path="res://scenes/ui/hud/waypoints/waypoint.gd" id="3_0fgut"]
+[ext_resource type="Script" uid="uid://cx2c56yeffja8" path="res://scenes/game/game_elements/projectile/projectile_data.gd" id="4_x8wrj"]
+[ext_resource type="PackedScene" uid="uid://ffq02kfkafe" path="res://scenes/enemy/PH_stickman/stickman_projectile.tscn" id="5_whwio"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay7er"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_4voe0"]
 
-[node name="PH_stickman" type="CharacterBody3D" node_paths=PackedStringArray("sprite")]
+[node name="PH_stickman" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "projectile_data")]
 script = ExtResource("1_ix88n")
 sprite = NodePath("CollisionShape3D/Sprite3D")
+projectile_data = NodePath("projectile_data")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ay7er")
@@ -29,6 +32,14 @@ mesh = SubResource("SphereMesh_4voe0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="waypoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24526, 0)
 script = ExtResource("3_0fgut")
 color = Color(1, 0.00784314, 0, 1)
+
+[node name="projectile_data" type="Node" parent="."]
+script = ExtResource("4_x8wrj")
+speed = 20.0
+lifetime = 4.0
+scene = ExtResource("5_whwio")
+damage = 5.0

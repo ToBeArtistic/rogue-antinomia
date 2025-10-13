@@ -25,7 +25,7 @@ func _ready() -> void:
 	Signals.create_enemy_healthbar.emit(healthbardata)
 
 func hit(data : ProjectileData) -> void:
-	Signals.create_damage_number.emit(data.damage)
+	Signals.create_damage_number.emit(data.get_damage_data().damage)
 
 func die() -> void:
 	Signals.enemy_died.emit(self)

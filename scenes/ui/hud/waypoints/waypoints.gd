@@ -2,7 +2,7 @@ extends CenterContainer
 
 class_name WaypointDrawer
 
-@export var waypoint_size : float = 5.0
+@export var waypoint_size : float = 3.0
 @export var waypoint_default_color : Color = Color.AQUA
 
 func _process(_delta : float) -> void:

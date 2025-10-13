@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc1dlavcn5jdf"]
+[gd_scene load_steps=6 format=3 uid="uid://dc1dlavcn5jdf"]
 
 [ext_resource type="Script" uid="uid://bbqv27fpdqlpi" path="res://scenes/ui/components/enemy_healthbar.gd" id="1_qqigg"]
 [ext_resource type="Theme" uid="uid://cca2sjieq4dht" path="res://resources/themes/hud.tres" id="2_qqigg"]
 [ext_resource type="StyleBox" uid="uid://dyw5jxiq1mvud" path="res://scenes/ui/cards/template/red_stylebox.tres" id="3_qqigg"]
+
+[sub_resource type="Gradient" id="Gradient_qqigg"]
+colors = PackedColorArray(0, 0, 0, 0.717647, 0.192157, 0.192157, 0.192157, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ns3im"]
+gradient = SubResource("Gradient_qqigg")
+width = 15
+height = 15
+fill_from = Vector2(0.5, 0)
+repeat = 2
 
 [node name="enemy_healthbar" type="Control"]
 layout_mode = 3
@@ -134,3 +144,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ns3im")

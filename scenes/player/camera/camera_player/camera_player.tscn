@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcpoe44pybdqr"]
+[gd_scene load_steps=8 format=3 uid="uid://bcpoe44pybdqr"]
 
 [ext_resource type="Script" uid="uid://ppkat51ha003" path="res://scenes/player/camera/camera_player/camera_player.gd" id="1_pex7r"]
+[ext_resource type="Script" uid="uid://dc7lsny7i2sr5" path="res://scenes/player/camera/camera_player/3d_card_ui_elements.gd" id="2_o6scw"]
 [ext_resource type="Script" uid="uid://demebl7fhiilp" path="res://scenes/player/camera/camera_bound_ui/hud_card_3d.gd" id="3_4tkoh"]
 [ext_resource type="PackedScene" uid="uid://dq4o54f1xlxf" path="res://scenes/ui/cards/template/ui_card.tscn" id="3_r2dm2"]
 [ext_resource type="Script" uid="uid://dlrmiyts15uc6" path="res://scenes/ui/cards/template/ui_card_data.gd" id="4_4nt8r"]
@@ -21,6 +22,7 @@ target_position = Vector3(0, 0, -5)
 collision_mask = 2
 
 [node name="3d_card_ui_elements" type="Node3D" parent="."]
+script = ExtResource("2_o6scw")
 
 [node name="core_card" type="Node3D" parent="3d_card_ui_elements" node_paths=PackedStringArray("card_data", "card_ui")]
 transform = Transform3D(0.122932, 0.0383959, -0.159973, 0.0200822, 0.210451, 0.0601124, 0.15929, -0.0561642, 0.115881, 0.876691, -0.26263, -1.08567)

@@ -4,7 +4,7 @@ class_name Player
 
 var data : PlayerData = PlayerData.new()
 
-var direction = Vector3()
+var direction : Vector3 = Vector3()
 var speed : float = STARTING_SPEED
 var acceleration : float = ACCELERATION
 var slowdown_acceleration : float = SLOWDOWN_ACCELERATION
@@ -14,7 +14,7 @@ var dash_cooldown : float = 0.0
 var dash_active : bool = false
 var double_jump : bool = true
 
-var coyote_timer = 0.0
+var coyote_timer : float = 0.0
 
 const STARTING_SPEED = 8.0
 const MAX_SPEED = 30.0
@@ -30,7 +30,7 @@ const DASH_ACTIVATION_TIME = 0.2
 const DASH_COOLDOWN = 0.3
 const COYOTE_TIME = 0.3
 
-var gravity = 60.0
+var gravity : float = 60.0
 
 #Camera variables
 var _mouse_input : bool = false
@@ -53,11 +53,11 @@ var _camera_rotation : Vector3
 @onready var camera : Camera3D = $camera_player
 
 
-func _ready():
+func _ready() -> void:
 	Signals.player_select_equipment.emit(self, Enum.EQUIPMENT.PH_RIFLE)
 	Signals.player_data_updated.emit(self.data)
 
-func _input(event):
+func _input(event : InputEvent) -> void:
 	if event.is_action("exit_game"):
 		get_tree().quit()
 	if event.is_action_pressed("equipment_primary"):
@@ -68,13 +68,13 @@ func _input(event):
 		debug(event)
 
 #Mouse movement handled in this method so that UI inputs will be captured first
-func _unhandled_input(event):
+func _unhandled_input(event : InputEvent) -> void:
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
 		_rotation_input = -event.relative.x
 		_tilt_input = -event.relative.y
 
-func _update_camera(delta):
+func _update_camera(delta: float) -> void:
 	_mouse_rotation.x += _tilt_input * delta * MOUSE_SENS_X
 	_mouse_rotation.x = clamp(_mouse_rotation.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 	_mouse_rotation.y += _rotation_input * delta * MOUSE_SENS_Y
@@ -88,8 +88,8 @@ func _update_camera(delta):
 	_rotation_input = 0.0
 	_tilt_input = 0.0
 
-func _physics_process(delta):
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+func _physics_process(delta : float) -> void:
+	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
 	acceleration = ACCELERATION
 	slowdown_acceleration = SLOWDOWN_ACCELERATION
@@ -151,21 +151,26 @@ func _physics_process(delta):
 	data.velocity = velocity.length()
 	Signals.player_data_updated.emit(self.data)
 	
-func handle_damage(damage : DamageData):
+func handle_damage(damage : DamageData) -> void:
 	damage.damage_player(self)
 	
-func debug(event):
+func debug(event : InputEvent) -> void:
 	if event.is_action_pressed("debug_take_damage"):
 			data.health = data.health - 10
 			Signals.player_data_updated.emit(data)
 
-func handle_jump():
+func handle_jump() -> void:
 	if not Input.is_action_just_pressed("jump"): 
 		return
-	var jump_velocity = JUMP_VELOCITY
+	var jump_velocity : float = JUMP_VELOCITY
 	if not (coyote_timer >= 0.0 or double_jump):
 		return
 	if not coyote_timer >= 0.0 and double_jump:
 		double_jump = false
 		jump_velocity = JUMP_VELOCITY / DOUBLE_JUMP_FACTOR
 	velocity.y = jump_velocity
+
+func hit(projectile_data : ProjectileData) -> void:
+	if not projectile_data:
+		return
+	handle_damage(projectile_data.get_damage_data())
