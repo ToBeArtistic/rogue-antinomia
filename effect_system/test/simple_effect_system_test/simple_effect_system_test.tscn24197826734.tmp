@@ -1,0 +1,329 @@
+[gd_scene load_steps=23 format=3 uid="uid://d2byoifsexpr"]
+
+[ext_resource type="Script" uid="uid://djj7mbul62ec3" path="res://effect_system/test/simple_effect_system_test/simple_effect_system_test.gd" id="1_noqea"]
+[ext_resource type="Script" uid="uid://bmp6xxmn2hvs3" path="res://effect_system/actor/actor_wrapper_3d.gd" id="2_a0ypd"]
+[ext_resource type="Script" uid="uid://p2w4o88bbe42" path="res://effect_system/actor/actor.gd" id="3_a0ypd"]
+[ext_resource type="Script" uid="uid://d2bm6al180dss" path="res://effect_system/targetable/targetable_wrapper_3d.gd" id="3_gu2aj"]
+[ext_resource type="Script" uid="uid://nni4j5dlim78" path="res://effect_system/originator/orignator_wrapper.gd" id="4_yw62q"]
+[ext_resource type="Script" uid="uid://cnyykqjsgfuwn" path="res://effect_system/delivery/delivery_wrapper_direct_target.gd" id="5_v81e2"]
+[ext_resource type="Script" uid="uid://b4nrn0hhva6ch" path="res://effect_system/delivery/delivery.gd" id="6_88wqc"]
+[ext_resource type="Script" uid="uid://pqc84ui1y1it" path="res://effect_system/test/simple_effect_system_test/test_effect.gd" id="7_w5gyg"]
+[ext_resource type="Script" uid="uid://b6gxr8gcaqonk" path="res://effect_system/originator/originator_wrapper_3d.gd" id="8_h1xff"]
+
+[sub_resource type="Resource" id="Resource_gu2aj"]
+script = ExtResource("3_a0ypd")
+health = 1000.0
+defense = 100.0
+resistance = 1.0
+speed = 10.0
+metadata/_custom_type_script = "uid://p2w4o88bbe42"
+
+[sub_resource type="GDScript" id="GDScript_ubqdn"]
+script/source = "extends Resource
+
+class_name Targetable
+#Targetable confirms or denies hits from deliveries, then passes the effect on to the parent actor
+#Targetables may apply modifiers to effects
+
+signal confirm_hit(delivery:Delivery)
+signal ignore_hit(delivery:Delivery)
+signal try_hit(deliveries:Delivery)
+
+var name : String
+
+var parent_actor : Actor :
+	set(value):
+		EffectSystemUtils.print_reference(self, value)
+		if value.targetables.has(self):
+			return
+		value.targetables.append(self)
+		parent_actor = value
+
+static func attach_to_wrapper(wrapper:Node, targetable:Targetable) -> void:
+	EffectSystemUtils.check_resource_name_add_if_none(wrapper,targetable,\"%s(targetable)\")
+	EffectSystemUtils.print_attachment(wrapper, targetable)
+"
+
+[sub_resource type="Resource" id="Resource_r083m"]
+script = SubResource("GDScript_ubqdn")
+metadata/_custom_type_script = "uid://c4pta7jefg0jj"
+
+[sub_resource type="GDScript" id="GDScript_qpaj3"]
+script/source = "@tool
+extends Resource
+
+class_name Originator
+
+signal try_send_delivery
+
+var name : String
+@export var identifier : IDENTIFIER = IDENTIFIER.UNASSIGNED
+@export_subgroup(\"Stats\")
+@export var frequency : float = 1.0
+@export var charges : int = 10
+@export var cooldown : float = 2.0
+@export_subgroup(\"Tags\")
+@export var tags : Array[TAGS] = []
+
+var parent_originator : Originator :
+	set(value):
+		EffectSystemUtils.print_reference(self, value)
+		parent_originator = value
+var parent_actor : Actor :
+	set(value):
+		EffectSystemUtils.print_reference(self, value)
+		parent_actor = value
+var parent_loadout : Loadout :
+	set(value):
+		EffectSystemUtils.print_reference(self, value)
+		parent_loadout = value
+
+var child_originators : Array[Originator] = []
+
+enum TAGS {
+	CORE,
+	SKILL,
+	PASSIVE,
+	WEAPON,
+	SPELL,
+	RIFLE,
+	GRENADE
+}
+
+enum IDENTIFIER {
+	UNASSIGNED
+
+}
+
+static func attach_to_wrapper(wrapper:Node, originator:Originator) -> void:
+	EffectSystemUtils.check_resource_name_add_if_none(wrapper,originator,\"%s(originator)\")
+	EffectSystemUtils.print_attachment(wrapper, originator)
+	var children : Array[Node] = EffectSystemUtils.find_all_children(wrapper)
+	for child in children:
+		if child.get(\"originator\"):
+			var child_originator : Originator = child.get(\"originator\")
+			child_originator.parent_originator = originator
+		if child.get(\"delivery\"):
+			var delivery : Delivery = child.get(\"delivery\")
+			delivery.parent_originator = originator
+	"
+
+[sub_resource type="Resource" id="Resource_s10lm"]
+resource_local_to_scene = true
+script = SubResource("GDScript_qpaj3")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="Resource" id="Resource_k38w7"]
+resource_local_to_scene = true
+script = ExtResource("6_88wqc")
+name = ""
+metadata/_custom_type_script = "uid://b4nrn0hhva6ch"
+
+[sub_resource type="GDScript" id="GDScript_3bby8"]
+script/source = "@tool
+extends Resource
+
+class_name Effect
+
+signal apply_to_targetable(target:Targetable) 	# Effects must implement a method that handles this
+
+var name : String
+
+var parent_delivery : Delivery :
+	set(value):
+		EffectSystemUtils.print_reference(self, value)
+		parent_delivery = value
+
+
+@export var identifier : IDENTIFIER = IDENTIFIER.UNASSIGNED
+
+@export_category(\"Stats\")
+@export_subgroup(\"Power\")
+@export var power : float = 100
+@export_subgroup(\"Boon\")
+@export var boon : float = 10
+@export_range (0, 1) var min_boon : float = 0 
+@export_range (0, 1) var max_boon : float = 1 
+
+@export_subgroup(\"Amplification\")
+@export var amplification : float = 1.0
+@export_subgroup(\"Critical\")
+@export var critical : float = 1.0
+
+@export_category(\"Tags\")
+@export var tags : Array[TAGS] = []
+
+# Total effect on actor determined by:
+var flat_total : float = 0		# = (power+boon-defense)
+var mult_total : float = 0 		# = (amplification*critical/resistance)
+var total_effect : float = 0 	# = (flat_total * mult_total)
+
+func _get_rng_boon() -> float:
+	var rng_boon : float = boon * randf_range(min_boon, max_boon)
+	return rng_boon
+
+func calculate_total_effect(actor:Actor) -> float:
+	flat_total = (power + _get_rng_boon() - actor.defense)
+	mult_total = (amplification * critical / actor.resistance)
+	total_effect = (flat_total * mult_total)
+	return total_effect
+
+enum IDENTIFIER {
+	UNASSIGNED,
+	DEAL_IMPACT_DAMAGE
+
+}
+
+enum TAGS {
+	HARMLESS,
+	WEAK,
+	HEAVY
+}
+
+enum CALC_FLAG {
+	EXCLUDE_DEF = 1<<0
+}
+
+static func attach_to_wrapper(wrapper:Node, effect:Effect) -> void:
+	EffectSystemUtils.check_resource_name_add_if_none(wrapper,effect,\"%s(effect)\")
+	EffectSystemUtils.print_attachment(wrapper, effect)
+"
+
+[sub_resource type="Resource" id="Resource_cfev5"]
+resource_local_to_scene = true
+script = SubResource("GDScript_3bby8")
+identifier = 0
+power = 100.0
+boon = 10.0
+min_boon = 0.0
+max_boon = 1.0
+amplification = 1.0
+critical = 1.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://dcs6m4txapdfh"
+
+[sub_resource type="Resource" id="Resource_po2x0"]
+resource_local_to_scene = true
+script = SubResource("GDScript_qpaj3")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="Resource" id="Resource_4ov0d"]
+resource_local_to_scene = true
+script = SubResource("GDScript_qpaj3")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="GDScript" id="GDScript_ced1i"]
+script/source = "extends Resource
+
+class_name Actor
+
+signal activate_core
+signal apply_effect(effect:Effect)
+
+var name : String
+
+@export var health : float = 1000
+@export var defense : float = 100
+@export var resistance : float = 1
+@export var speed : float = 10
+
+var loadouts : Array[Loadout] = []
+var child_originators : Array[Originator] = []
+var targetables : Array[Targetable] = []
+
+
+static func attach_to_wrapper(wrapper:Node, actor:Actor) -> void:
+	EffectSystemUtils.check_resource_name_add_if_none(wrapper,actor,\"%s(actor)\")
+	EffectSystemUtils.print_attachment(wrapper,actor)
+	var children : Array[Node] = EffectSystemUtils.find_all_children(wrapper)
+	for child in children:
+		if child.get(\"targetable\") and child.get(\"targetable\") is Targetable:
+			var targetable : Targetable = child.get(\"targetable\")
+			targetable.parent_actor = actor
+		if child.get(\"originator\") and child.get(\"originator\") is Originator:
+			var originator : Originator = child.get(\"originator\")
+			originator.parent_actor = actor
+		if child.get(\"loadout\") and child.get(\"loadout\") is Loadout:
+			var loadout : Loadout = child.get(\"loadout\")
+			loadout.parent_actor = actor
+"
+
+[sub_resource type="Resource" id="Resource_4ivru"]
+resource_local_to_scene = true
+script = SubResource("GDScript_ced1i")
+health = null
+defense = null
+resistance = null
+speed = null
+metadata/_custom_type_script = "uid://p2w4o88bbe42"
+
+[sub_resource type="Resource" id="Resource_lcukx"]
+resource_local_to_scene = true
+script = SubResource("GDScript_ubqdn")
+metadata/_custom_type_script = "uid://c4pta7jefg0jj"
+
+[node name="SimpleEffectSystemTest" type="Node"]
+script = ExtResource("1_noqea")
+
+[node name="ActorA" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_a0ypd")
+actor = SubResource("Resource_gu2aj")
+metadata/_custom_type_script = "uid://bmp6xxmn2hvs3"
+
+[node name="target_a" type="Node3D" parent="ActorA"]
+script = ExtResource("3_gu2aj")
+targetable = SubResource("Resource_r083m")
+metadata/_custom_type_script = "uid://d2bm6al180dss"
+
+[node name="funny_originator" type="Node" parent="ActorA"]
+script = ExtResource("4_yw62q")
+originator = SubResource("Resource_s10lm")
+metadata/_custom_type_script = "uid://nni4j5dlim78"
+
+[node name="direct_target" type="Node" parent="ActorA/funny_originator" node_paths=PackedStringArray("target")]
+script = ExtResource("5_v81e2")
+delivery = SubResource("Resource_k38w7")
+target = NodePath("../../../ActorB/target_B")
+metadata/_custom_type_script = "uid://cnyykqjsgfuwn"
+
+[node name="TestEffect" type="Node" parent="ActorA/funny_originator/direct_target"]
+script = ExtResource("7_w5gyg")
+effect = SubResource("Resource_cfev5")
+metadata/_custom_type_script = "uid://pqc84ui1y1it"
+
+[node name="originator3dChild" type="Node3D" parent="ActorA/funny_originator"]
+script = ExtResource("8_h1xff")
+originator = SubResource("Resource_po2x0")
+metadata/_custom_type_script = "uid://b6gxr8gcaqonk"
+
+[node name="child_of_3d" type="Node" parent="ActorA/funny_originator/originator3dChild"]
+script = ExtResource("4_yw62q")
+originator = SubResource("Resource_4ov0d")
+metadata/_custom_type_script = "uid://nni4j5dlim78"
+
+[node name="ActorB" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_a0ypd")
+actor = SubResource("Resource_4ivru")
+metadata/_custom_type_script = "uid://bmp6xxmn2hvs3"
+
+[node name="target_B" type="Node3D" parent="ActorB"]
+script = ExtResource("3_gu2aj")
+targetable = SubResource("Resource_lcukx")
+metadata/_custom_type_script = "uid://d2bm6al180dss"

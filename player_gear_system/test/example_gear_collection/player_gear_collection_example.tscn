@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4864qt0d2cs2"]
+
+[ext_resource type="Script" uid="uid://buylcqwkkri0x" path="res://player_gear_system/test/example_gear_collection/player_gear_collection_example.gd" id="1_thgr3"]
+
+[node name="PlayerGearCollectionExample" type="Node"]
+script = ExtResource("1_thgr3")

@@ -1,0 +1,134 @@
+[gd_scene load_steps=22 format=3 uid="uid://d2byoifsexpr"]
+
+[ext_resource type="Script" uid="uid://djj7mbul62ec3" path="res://effect_system/test/simple_effect_system_test/simple_effect_system_test.gd" id="1_noqea"]
+[ext_resource type="Script" uid="uid://bmp6xxmn2hvs3" path="res://effect_system/actor/actor_wrapper_3d.gd" id="2_a0ypd"]
+[ext_resource type="Script" uid="uid://p2w4o88bbe42" path="res://effect_system/actor/actor.gd" id="3_a0ypd"]
+[ext_resource type="Script" uid="uid://d2bm6al180dss" path="res://effect_system/targetable/targetable_wrapper_3d.gd" id="3_gu2aj"]
+[ext_resource type="Script" uid="uid://nni4j5dlim78" path="res://effect_system/originator/orignator_wrapper.gd" id="4_yw62q"]
+[ext_resource type="Script" uid="uid://c4pta7jefg0jj" path="res://effect_system/targetable/targetable.gd" id="5_gu2aj"]
+[ext_resource type="Script" uid="uid://cnyykqjsgfuwn" path="res://effect_system/delivery/delivery_wrapper_direct_target.gd" id="5_v81e2"]
+[ext_resource type="Script" uid="uid://b4nrn0hhva6ch" path="res://effect_system/delivery/delivery.gd" id="6_88wqc"]
+[ext_resource type="Script" uid="uid://bui0w01fd7kht" path="res://effect_system/originator/originator.gd" id="7_v81e2"]
+[ext_resource type="Script" uid="uid://pqc84ui1y1it" path="res://effect_system/test/simple_effect_system_test/test_effect.gd" id="7_w5gyg"]
+[ext_resource type="Script" uid="uid://b6gxr8gcaqonk" path="res://effect_system/originator/originator_wrapper_3d.gd" id="8_h1xff"]
+[ext_resource type="Script" uid="uid://dcs6m4txapdfh" path="res://effect_system/effect/effect.gd" id="11_88wqc"]
+
+[sub_resource type="Resource" id="Resource_a0ypd"]
+resource_local_to_scene = true
+script = ExtResource("3_a0ypd")
+health = 1000.0
+defense = 100.0
+resistance = 1.0
+speed = 10.0
+metadata/_custom_type_script = "uid://p2w4o88bbe42"
+
+[sub_resource type="Resource" id="Resource_yw62q"]
+script = ExtResource("5_gu2aj")
+metadata/_custom_type_script = "uid://c4pta7jefg0jj"
+
+[sub_resource type="Resource" id="Resource_w5gyg"]
+script = ExtResource("7_v81e2")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="Resource" id="Resource_h1xff"]
+script = ExtResource("6_88wqc")
+name = ""
+metadata/_custom_type_script = "uid://b4nrn0hhva6ch"
+
+[sub_resource type="Resource" id="Resource_ced1i"]
+script = ExtResource("11_88wqc")
+identifier = 0
+power = 100.0
+boon = 10.0
+min_boon = 0.0
+max_boon = 1.0
+amplification = 1.0
+critical = 1.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://dcs6m4txapdfh"
+
+[sub_resource type="Resource" id="Resource_ubqdn"]
+script = ExtResource("7_v81e2")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="Resource" id="Resource_qpaj3"]
+script = ExtResource("7_v81e2")
+identifier = 0
+frequency = 1.0
+charges = 10
+cooldown = 2.0
+tags = Array[int]([])
+metadata/_custom_type_script = "uid://bui0w01fd7kht"
+
+[sub_resource type="Resource" id="Resource_v81e2"]
+script = ExtResource("3_a0ypd")
+health = 1000.0
+defense = 100.0
+resistance = 1.0
+speed = 10.0
+metadata/_custom_type_script = "uid://p2w4o88bbe42"
+
+[sub_resource type="Resource" id="Resource_88wqc"]
+script = ExtResource("5_gu2aj")
+metadata/_custom_type_script = "uid://c4pta7jefg0jj"
+
+[node name="SimpleEffectSystemTest" type="Node"]
+script = ExtResource("1_noqea")
+
+[node name="ActorA" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_a0ypd")
+actor = SubResource("Resource_a0ypd")
+metadata/_custom_type_script = "uid://bmp6xxmn2hvs3"
+
+[node name="target_a" type="Node3D" parent="ActorA"]
+script = ExtResource("3_gu2aj")
+targetable = SubResource("Resource_yw62q")
+metadata/_custom_type_script = "uid://d2bm6al180dss"
+
+[node name="funny_originator" type="Node" parent="ActorA"]
+script = ExtResource("4_yw62q")
+originator = SubResource("Resource_w5gyg")
+metadata/_custom_type_script = "uid://nni4j5dlim78"
+
+[node name="direct_target" type="Node" parent="ActorA/funny_originator" node_paths=PackedStringArray("target")]
+script = ExtResource("5_v81e2")
+delivery = SubResource("Resource_h1xff")
+target = NodePath("../../../ActorB/target_B")
+metadata/_custom_type_script = "uid://cnyykqjsgfuwn"
+
+[node name="TestEffect" type="Node" parent="ActorA/funny_originator/direct_target"]
+script = ExtResource("7_w5gyg")
+effect = SubResource("Resource_ced1i")
+metadata/_custom_type_script = "uid://pqc84ui1y1it"
+
+[node name="originator3dChild" type="Node3D" parent="ActorA/funny_originator"]
+script = ExtResource("8_h1xff")
+originator = SubResource("Resource_ubqdn")
+metadata/_custom_type_script = "uid://b6gxr8gcaqonk"
+
+[node name="child_of_3d" type="Node" parent="ActorA/funny_originator/originator3dChild"]
+script = ExtResource("4_yw62q")
+originator = SubResource("Resource_qpaj3")
+metadata/_custom_type_script = "uid://nni4j5dlim78"
+
+[node name="ActorB" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_a0ypd")
+actor = SubResource("Resource_v81e2")
+metadata/_custom_type_script = "uid://bmp6xxmn2hvs3"
+
+[node name="target_B" type="Node3D" parent="ActorB"]
+script = ExtResource("3_gu2aj")
+targetable = SubResource("Resource_88wqc")
+metadata/_custom_type_script = "uid://d2bm6al180dss"

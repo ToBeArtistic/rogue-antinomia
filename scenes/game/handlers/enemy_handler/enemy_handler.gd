@@ -4,7 +4,7 @@ class_name EnemyHandler
 
 @export var enemies : Array[PackedScene]
 
-func _ready():
+func _ready() -> void:
 	EnemyService.enemy_handler = self
 
 func get_random_enemy_instance() -> Enemy:
@@ -12,5 +12,5 @@ func get_random_enemy_instance() -> Enemy:
 	enemy.died.connect(enemy_killed)
 	return enemy
 
-func enemy_killed():
+func enemy_killed() -> void:
 	print_debug("enemy died")

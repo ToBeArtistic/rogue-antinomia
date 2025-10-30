@@ -8,11 +8,11 @@ class_name CameraHandler
 var player_camera : Camera3D = null
 var global_camera : Camera3D = null
 
-func _ready():
+func _ready() -> void:
 	CameraService.camera_handler = self
 	Signals.activate_player_camera.connect(set_player_camera)
 
-func set_player_camera(camera:Camera3D):
+func set_player_camera(camera:Camera3D) -> void:
 	player_camera = camera
 	player_camera.current = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -26,4 +26,4 @@ func get_active_camera() -> Camera3D:
 		if global_camera.current:
 			return global_camera
 	return null
-	pass
+	
