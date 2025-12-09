@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Rogue-Antinomia"
 run/main_scene="res://rogue_antinomia.tscn"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 
 [autoload]
 
